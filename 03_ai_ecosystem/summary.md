@@ -44,3 +44,6 @@
 你可能不仅要问：这些厉害的工具背后，到底藏着什么原理？为什么显卡能算出智能？
 
 接下来，让我们推开 **“核心技术”** 的大门，去探寻 AI 大脑深处的秘密。下一章：机器学习原理。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

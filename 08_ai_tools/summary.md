@@ -23,3 +23,6 @@
 很大程度上，这取决于 **你怎么问**。
 
 在 AI 圈子里，“问问题的技巧”被称为 **[提示词工程（Prompt Engineering）](../09_prompt_basics/README.md)**。下一章，我们将揭开这个听起来很高大上，但其实每个人都能学会的秘密——如何说出这句神奇的咒语，让 AI 乖乖听你的话。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

@@ -196,3 +196,6 @@ Agents是下一步：
 - **艺术**：在有限的上下文窗口中优化每一个字节
 
 掌握它，你会发现 AI 的能力远超想象。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

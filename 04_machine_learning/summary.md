@@ -49,3 +49,6 @@
 ### 下章预告
 
 下一章将深入探讨深度学习，解析神经网络的工作原理，介绍关键的深度学习技术，以及主流的网络架构（如 CNN、RNN、Transformer），让读者理解当今最先进 AI 系统的技术核心。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

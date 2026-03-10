@@ -198,3 +198,6 @@ SSM：超长序列，流式处理，效率优先
 - 如果对推理和架构都感兴趣，可以学习第 12 章（智能体），看看它们如何应用
 - 或者跳到第 13 章，思考这些技术变化对未来社会的意义
 - 或者深入某个特定应用领域（代码、法律、医疗等），看长上下文如何改变游戏
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

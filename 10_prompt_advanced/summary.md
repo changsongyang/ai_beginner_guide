@@ -30,3 +30,6 @@ AI 到底能帮我们在生活和工作中解决哪些具体问题？
 - 怎么用 AI 帮我做 PPT？
 
 下一章，我们将进入 **最接地气的实战环节**，给你 10 个即插即用的 AI 生活锦囊。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

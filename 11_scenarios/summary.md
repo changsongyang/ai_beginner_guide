@@ -23,3 +23,6 @@
 - 下一章，我们将进入 **AI 智能体与自动化**，看看 AI 如何从“陪你聊天”升级到“帮你干活”。
 - 随后，我们将讨论 **AI 的伦理与安全**：AI 会抢走我的饭碗吗？Deepfake 会毁灭信任吗？
 - 最后，我们将给出一份 **普通人的 AI 学习路径**，帮助你用终身学习适应这个新时代。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

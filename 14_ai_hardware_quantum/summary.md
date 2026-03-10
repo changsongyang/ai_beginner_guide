@@ -125,3 +125,6 @@ A: 对应用开发者：GPU（现在盈利）。对研究者：量子（未来�
 3. **竞争格局：** 5 年后，你认为 GPU、CPU、NPU 的市场份额会如何变化？
 
 4. **伦理问题：** 如果量子计算能破解所有现有加密，这对隐私和安全有什么影响？
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

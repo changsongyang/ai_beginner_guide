@@ -194,3 +194,6 @@ DeepSeek：完全开源（可下载、可修改、可商用）
 - 对具体应用感兴趣？→ 跳到第 8-12 章，看如何使用这些模型
 - 对未来发展感兴趣？→ 跳到第 13 章，思考这些技术的社会影响
 - 对技术细节感兴趣？→ 研究论文和开源代码，深入学习 MLA 和 MoE 的实现
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

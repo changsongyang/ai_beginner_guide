@@ -173,3 +173,6 @@
 **下一步**：如果你对推理模型有浓厚兴趣，可以继续学习：
 - 第6.6章（即将推出）：超越Transformer——SSM混合架构
 - 或者跳到第12章，学习如何在智能体系统中应用推理能力
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

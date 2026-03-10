@@ -21,3 +21,6 @@
 即使你已经会写不错的提示词，但如何让 AI 帮你处理极其复杂的任务？如何让它输出完美的 JSON 数据给程序用？如何通过引导“分步推理/关键步骤”来提升复杂题目的稳定性？
 
 下一章，我们将解锁更高级的玩法，把 AI 从“聊天对象”变成真正的“生产力工具”。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

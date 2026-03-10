@@ -21,3 +21,6 @@
 - **[附录 D](../appendices/appendix_d_learning_path.md)**：从小白到高手的进阶路线图
 
 感谢你的阅读。希望这本书能成为你 AI 之路上的第一块垫脚石。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

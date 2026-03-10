@@ -37,3 +37,6 @@
 ### 下章预告
 
 下一章将介绍 AI 技术的生态系统，包括主流的 AI 平台、开源框架、以及云端和边缘 AI 的发展趋势，帮助读者了解 AI 技术的实践环境和工具选择。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

@@ -19,3 +19,6 @@
 - 终结者里的天网会成真吗？
 
 下一章，我们将探讨 **AI 的伦理、安全与未来**，帮助你在拥抱技术的同时，保持清醒的头脑。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。
