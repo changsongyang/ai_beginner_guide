@@ -177,6 +177,10 @@ graph LR
 
 > 💡 **推荐路径**：零基础学 AI → 提示词工程 → 上下文工程 / Claude 技术指南 → 智能体 AI → 大模型安全
 
+---
+
+> **📚 延伸阅读**：学完基础后，推荐按以下路径深入：[《大模型提示词工程指南》](https://github.com/yeasy/prompt_engineering_guide) → [《智能体 AI 权威指南》](https://github.com/yeasy/agentic_ai_guide) → [《OpenClaw 从入门到精通》](https://github.com/yeasy/openclaw_guide)。
+
 ## 许可证
 
 本书采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可证。
