@@ -1,4 +1,4 @@
-<div align="center">
+<div align=“center”>
 
 # 零基础学 AI
 
@@ -8,7 +8,7 @@
 
 > 普通人看的 AI 入门。从零开始，掌握人工智能的核心知识与实践技能
 
-<img src="cover.jpg" width="300" alt="零基础学 AI 封面">
+<img src=“cover.jpg” width=“300” alt=“零基础学 AI 封面”>
 
 </div>
 

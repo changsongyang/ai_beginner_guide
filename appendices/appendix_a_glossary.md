@@ -3,7 +3,7 @@
 ## A
 
 **智能体（Agent）**
-以大语言模型为大脑，具备感知、规划和行动能力的 AI 系统。详见[第十二章](../12_agents/README.md)。
+以大语言模型为大脑，具备感知、规划和行动能力的 AI 系统。详见[第十四章](../14_agents/README.md)。
 
 **人工智能 （AI）**
 让机器模拟人类智能的技术，包括学习、推理、感知等能力。
@@ -17,13 +17,13 @@
 ## C
 
 **思维链（Chain of Thought/CoT）**
-一种提示技巧，要求模型展示推理步骤，提高逻辑题准确率。详见[第十章第一节](../10_prompt_advanced/10.1_chain_of_thought.md)。
+一种提示技巧，要求模型展示推理步骤，提高逻辑题准确率。详见[第十二章第一节](../12_prompt_advanced/12.1_chain_of_thought.md)。
 
 **ChatGPT**
-OpenAI 开发的聊天机器人，基于 GPT 模型。详见[第八章第一节](../08_ai_tools/8.1_chatgpt.md)。
+OpenAI 开发的聊天机器人，基于 GPT 模型。详见[第十章第一节](../10_ai_tools/10.1_chatgpt.md)。
 
 **Claude**
-Anthropic 开发的 AI，擅长长文本和写作。详见[第八章第二节](../08_ai_tools/8.2_claude.md)。
+Anthropic 开发的 AI，擅长长文本和写作。详见[第十章第二节](../10_ai_tools/10.2_claude.md)。
 
 **CLIP**
 图像和文本对齐的模型
@@ -78,7 +78,7 @@ AI 模型和数据集的共享平台
 模型即服务，按需调用云上模型的模式
 
 **Midjourney**
-著名的 AI 绘画工具，基于 Discord 使用。详见[第七章第二节](../07_multimodal_genai/7.2_image_generation.md)。
+著名的 AI 绘画工具，基于 Discord 使用。详见[第九章第二节](../09_multimodal_genai/9.2_image_generation.md)。
 
 **机器学习 （ML）**
 AI 的一个子集，让计算机从数据中学习规律，而不是通过编写明确规则。
@@ -92,10 +92,10 @@ AI 的一个子集，让计算机从数据中学习规律，而不是通过编�
 在海量数据上进行的初步训练，让模型获得通用知识。
 
 **提示词工程（Prompt Engineering）**
-设计输入的提示词，以引导模型生成更准确、高质量输出的技术。详见[第九章](../09_prompt_basics/README.md)和[第十章](../10_prompt_advanced/README.md)。
+设计输入的提示词，以引导模型生成更准确、高质量输出的技术。详见[第十一章](../11_prompt_basics/README.md)和[第十二章](../12_prompt_advanced/README.md)。
 
 **提示词注入（Prompt Injection）**
-通过构造恶意输入让模型偏离系统指令，诱导泄露信息或触发高风险操作。详见[第十三章第二节](../13_ethics_future/13.2_safety.md)。
+通过构造恶意输入让模型偏离系统指令，诱导泄露信息或触发高风险操作。详见[第十五章第二节](../15_ethics_future/15.2_safety.md)。
 
 **PyTorch**
 Meta 开发的深度学习框架
@@ -106,13 +106,13 @@ Meta 开发的深度学习框架
 检索增强生成，先查资料再回答
 
 **ReAct（推理+行动）**
-智能体的经典思考模式，结合推理（Reasoning）和行动（Acting）。详见[第十二章第二节](../12_agents/12.2_planning_action.md)。
+智能体的经典思考模式，结合推理（Reasoning）和行动（Acting）。详见[第十四章第二节](../14_agents/14.2_planning_action.md)。
 
 **人类反馈强化学习（Reinforcement Learning from Human Feedback/RLHF）**
 基于人类反馈的强化学习，用于调整模型，使其回答更符合人类偏好。
 
 **检索增强生成（Retrieval-Augmented Generation/RAG）**
-结合外部知识库检索和生成模型，解决模型知识幻觉和时效性问题。详见[第十二章第三节](../12_agents/12.3_no_code_platform.md)。
+结合外部知识库检索和生成模型，解决模型知识幻觉和时效性问题。详见[第十四章第三节](../14_agents/14.3_no_code_platform.md)。
 
 **RLHF**
 人类反馈强化学习，让模型对齐人类偏好
@@ -120,7 +120,7 @@ Meta 开发的深度学习框架
 ## S
 
 **Stable Diffusion**
-开源的 AI 绘画模型。详见[第七章第二节](../07_multimodal_genai/7.2_image_generation.md)。
+开源的 AI 绘画模型。详见[第九章第二节](../09_multimodal_genai/9.2_image_generation.md)。
 
 ## T
 
