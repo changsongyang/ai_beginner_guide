@@ -15,13 +15,13 @@
 
 1. `01_ml_basics.py`: 机器学习基础指标闭环（对应第 4 章：监督学习）。涵盖数据划分、模型拟合、指标评估。
 2. `02_structured_output.py`: API级结构化输出与 JSON Schema 校验（对应第 10 章：结构化输出）。展示如何超越“Markdown 输出提示词”，实现严格的代码级约束。
-3. `03_dl_overfitting.ipynb` (待补充): 深度学习的过拟合与早停机制可观测实验（对应第 5 章）。
-4. `04_rag_minimal.py` (待补充): 最小 RAG（检索增强生成）流程示例。
-5. `05_agent_evals.py` (待补充): 智能体输出的一致性打分与评测（Evals）基础。
+3. `03_dl_overfitting.py`: 深度学习的过拟合与早停机制可观测实验（对应第 5 章）。
+4. `04_rag_minimal.py`: 最小 RAG（检索增强生成）流程示例。
+5. `05_agent_evals.py`: 智能体输出的一致性打分与评测（Evals）基础。
 
 ### 环境安装建议
 
-建议使用 `virtualenv` 或 `conda` 创建独立的 Python 3.14 环境后安装依赖。
+建议使用 `virtualenv` 或 `conda` 创建独立的 Python 3.13+ 环境后安装依赖。
 
 ```bash
 # 例如使用 uv 或者 pip
