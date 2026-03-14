@@ -10,11 +10,11 @@
 
 ## 本章内容
 
-- **6.5.1 两种思维方式：System 1 vs System 2**：理解为什么有时候快速反应，有时候需要深入思考
-- **6.5.2 推理模型的工作原理**：解析o1、o3、Claude Extended Thinking等模型如何进行“思考”
-- **6.5.3 推理计算（Inference-Time Compute）**：掌握新的计算范式
-- **6.5.4 各主流推理模型对比**：深度求索R1、o1/o3、Claude Extended Thinking的核心差异
-- **6.5.5 推理模型的局限与成本**：认识到思考的代价
+- **7.1 两种思维方式：System 1 vs System 2**：理解为什么有时候快速反应，有时候需要深入思考
+- **7.2 推理模型的工作原理**：解析o1、o3、Claude Extended Thinking等模型如何进行”思考”
+- **7.3 推理计算（Inference-Time Compute）**：掌握新的计算范式
+- **7.4 各主流推理模型对比**：深度求索R1、o1/o3、Claude Extended Thinking的核心差异
+- **7.5 推理模型的局限与成本**：认识到思考的代价
 
 ## 为什么这章很重要？
 
