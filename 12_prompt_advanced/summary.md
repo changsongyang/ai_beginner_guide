@@ -30,6 +30,7 @@ AI 到底能帮我们在生活和工作中解决哪些具体问题？
 - 怎么用 AI 帮我做 PPT？
 
 下一章，我们将进入 **最接地气的实战环节**，给你 10 个即插即用的 AI 生活锦囊。
+
 ---
 
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。
@@ -67,7 +68,7 @@ AI 到底能帮我们在生活和工作中解决哪些具体问题？
 
 ## 关键数据
 
-```
+```text
 效果对比：
 - 只用通用AI：✓ 能用，但效果差
 - 优化提示词：✓ 好一些，提升20-30%
@@ -148,7 +149,7 @@ AI 到底能帮我们在生活和工作中解决哪些具体问题？
 
 ### 和微调的区别
 
-```
+```text
 微调：改变模型本身
 - 成本高（需要GPU，训练时间长）
 - 一旦完成，对所有问题都生效
@@ -164,7 +165,7 @@ AI 到底能帮我们在生活和工作中解决哪些具体问题？
 
 ### 和 Agents 的关系
 
-```
+```text
 Agents = 上下文工程 + 工具调用 + 规划
 
 Agents是下一步：
@@ -179,7 +180,7 @@ Agents是下一步：
 
 在学习路线中：
 
-```
+```text
 └─ 第一部分：基础概念
    ├─ 什么是AI
    └─ 基本概念
@@ -234,6 +235,7 @@ Agents是下一步：
 - **艺术**：在有限的上下文窗口中优化每一个字节
 
 掌握它，你会发现 AI 的能力远超想象。
+
 ---
 
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

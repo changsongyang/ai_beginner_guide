@@ -46,7 +46,7 @@
 
 ## 重要数字和对比
 
-```
+```text
 推理模型 vs 传统LLM：
 
 速度：
@@ -173,6 +173,7 @@
 **下一步**：如果你对推理模型有浓厚兴趣，可以继续学习：
 - 第八章：超越Transformer——新架构与创新案例
 - 或者跳到第14章，学习如何在智能体系统中应用推理能力
+
 ---
 
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

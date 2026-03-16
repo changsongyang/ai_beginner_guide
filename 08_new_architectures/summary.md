@@ -44,7 +44,7 @@
 
 ## 重要数字和对比
 
-```
+```text
 复杂度对比：
 
 处理100K token文本：
@@ -114,7 +114,7 @@ Mamba（纯SSM）：
 
 ## 重要的对比表格
 
-```
+```text
 Transformer vs SSM vs 混合模型：
 
                 Transformer  SSM(Mamba)  混合(Jamba)
@@ -198,6 +198,7 @@ SSM：超长序列，流式处理，效率优先
 - 如果对推理和架构都感兴趣，可以学习第 12 章（智能体），看看它们如何应用
 - 或者跳到第 13 章，思考这些技术变化对未来社会的意义
 - 或者深入某个特定应用领域（代码、法律、医疗等），看长上下文如何改变游戏
+
 ---
 
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。
@@ -238,7 +239,7 @@ SSM：超长序列，流式处理，效率优先
 
 ## 核心数字总结
 
-```
+```text
 DeepSeek的创新指标：
 
 训练成本：
@@ -309,7 +310,7 @@ DeepSeek：完全开源（可下载、可修改、可商用）
 
 ## 重要的对比表格
 
-```
+```text
 主流大模型对比（2024年底）：
 
                 GPT-4    Claude    DeepSeek   Gemini
@@ -400,6 +401,7 @@ DeepSeek：完全开源（可下载、可修改、可商用）
 - 对具体应用感兴趣？→ 跳到第 8-12 章，看如何使用这些模型
 - 对未来发展感兴趣？→ 跳到第 13 章，思考这些技术的社会影响
 - 对技术细节感兴趣？→ 研究论文和开源代码，深入学习 MLA 和 MoE 的实现
+
 ---
 
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。
