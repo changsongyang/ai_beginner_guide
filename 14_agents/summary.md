@@ -81,7 +81,7 @@
 
 ## 协作的4种模式
 
-### 1. 串行流程（Pipeline）
+### 1. 串行流程
 
 ```text
 任务 → AI1 → AI2 → AI3 → 结果
@@ -91,7 +91,7 @@
 时间：需要3倍的时间（因为依次执行）
 ```
 
-### 2. 并行执行（Parallel）
+### 2. 并行执行
 
 ```mermaid
 graph TD
@@ -109,7 +109,7 @@ graph TD
     style note1 fill:#FFF9E6
 ```
 
-### 3. 辩论式（Debate）
+### 3. 辩论式
 
 ```mermaid
 graph TD
@@ -124,7 +124,7 @@ graph TD
     style note1 fill:#FFF9E6
 ```
 
-### 4. 分层决策（Hierarchical）
+### 4. 分层决策
 
 ```mermaid
 graph TD
@@ -139,7 +139,7 @@ graph TD
     style note1 fill:#FFF9E6
 ```
 
-## Agent-to-Agent（A2A）协议
+## Agent-to-Agent协议
 
 ### 为什么需要A2A？
 
@@ -348,7 +348,7 @@ graph TD
 - 但质量可以做到95%+
 ```
 
-## 关键外卖（Key Takeaways）
+## 关键外卖
 
 1. **多智能体 > 单个超级AI**
    - 效果好10-100倍
