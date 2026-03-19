@@ -138,3 +138,4 @@
 * [附录 B：常用 AI 工具与资源汇总](appendices/appendix_b_tools.md)
 * [附录 C：推荐阅读与学习资源](appendices/appendix_c_resources.md)
 * [附录 D：AI 学习路线图](appendices/appendix_d_learning_path.md)
+* [附录 E：工程师配套实验代码](labs/README.md)
