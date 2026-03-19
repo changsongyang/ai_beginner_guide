@@ -148,7 +148,13 @@ graph LR
    ```
    启动后，访问 [本地阅读地址](http://localhost:4000) 即可阅读本书。
 
-3. **生成 PDF**（可选）
+3. **使用 mdpress**（可选）
+   ```bash
+   go install github.com/yeasy/mdpress@latest
+   mdpress serve
+   ```
+
+4. **生成 PDF**（可选）
    ```bash
    npm run pdf
    ```
