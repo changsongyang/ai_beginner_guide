@@ -135,29 +135,14 @@ graph LR
 
 ## 本地开发与预览
 
-本书支持使用 HonKit 进行本地阅读。
+使用 [mdPress](https://github.com/yeasy/mdpress) 构建：
 
-1. **安装依赖**
-   ```bash
-   npm install
-   ```
+```bash
+brew tap yeasy/tap && brew install mdpress
+mdpress serve
+```
 
-2. **启动本地服务器**
-   ```bash
-   npm run serve
-   ```
-   启动后，访问 [本地阅读地址](http://localhost:4000) 即可阅读本书。
-
-3. **使用 mdpress**（可选）
-   ```bash
-   go install github.com/yeasy/mdpress@latest
-   mdpress serve
-   ```
-
-4. **生成 PDF**（可选）
-   ```bash
-   npm run pdf
-   ```
+启动后，访问 [本地阅读地址](http://localhost:4000) 即可阅读本书。
 
 ## 参与贡献
 
