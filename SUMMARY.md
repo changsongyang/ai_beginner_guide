@@ -109,6 +109,7 @@
   * [13.2 学习助手](13_scenarios/13.2_learning_mentor.md)
   * [13.3 编程助手](13_scenarios/13.3_coding_assistant.md)
   * [13.4 生活助手](13_scenarios/13.4_life_assistant.md)
+  * [13.5 AI 在非技术行业的应用](13_scenarios/13.5_non_tech_industries.md)
   * [本章小结](13_scenarios/summary.md)
 
 ## 第四部分：进阶与展望
