@@ -2,6 +2,11 @@
 
 * [前言](README.md)
 
+## 快速导航
+
+* `A轨`：从 [第一章](01_ai_intro/README.md) → [第十章](10_ai_tools/README.md) → [第十一章](11_prompt_basics/README.md) → [第十三章](13_scenarios/README.md) → [第十四章](14_agents/README.md)，适合先掌握工具与应用。
+* `B轨`：从 [第一章](01_ai_intro/README.md) → [第四章](04_machine_learning/README.md) → [第六章](06_llm/README.md) → [第十二章](12_prompt_advanced/README.md) → [第十四章](14_agents/README.md)，适合有编程基础的读者。
+
 ## 第一部分：AI 基础入门
 
 * [第一章 走进人工智能世界](01_ai_intro/README.md)
