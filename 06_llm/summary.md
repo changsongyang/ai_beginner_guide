@@ -33,6 +33,7 @@
 ### 下章预告
 
 下一章将介绍从多模态到具身智能，探讨 AI 如何处理和生成图像、音频、视频等多种类型的内容，以及 DALL-E、Stable Diffusion、Sora 等生成式模型的技术原理。
+
 ---
 
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

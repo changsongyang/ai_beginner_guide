@@ -27,6 +27,7 @@
 ### 下章预告
 
 第二部分”核心技术解析”到此结束。从[第十章](../10_ai_tools/README.md)开始进入第三部分”实战应用技巧”，将详细介绍 ChatGPT、Claude、Gemini 等主流 AI 工具的使用方法，帮助读者学会高效使用这些工具。
+
 ---
 
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

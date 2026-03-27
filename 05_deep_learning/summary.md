@@ -30,6 +30,7 @@
 ### 下章预告
 
 下一章将专门介绍大语言模型（LLM），深入解析 ChatGPT、Claude 等模型背后的技术原理，从 Transformer 架构到预训练与微调方法，帮助读者理解生成式 AI 的核心技术。
+
 ---
 
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

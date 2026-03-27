@@ -37,6 +37,7 @@
 ### 下章预告
 
 在了解 AI 的基本概念和应用场景后，下一章将深入探讨 AI 的核心概念，帮助读者理解人工智能、机器学习、深度学习之间的关系，以及支撑 AI 运行的数据、算法和训练等关键要素。
+
 ---
 
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/ai_beginner_guide/issues) 或 [PR](https://github.com/yeasy/ai_beginner_guide/pulls)。

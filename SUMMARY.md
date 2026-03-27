@@ -2,17 +2,12 @@
 
 * [前言](README.md)
 
-## 快速导航
-
-* `A轨`：从 [第一章](01_ai_intro/README.md) → [第十章](10_ai_tools/README.md) → [第十一章](11_prompt_basics/README.md) → [第十三章](13_scenarios/README.md) → [第十四章](14_agents/README.md)，适合先掌握工具与应用。
-* `B轨`：从 [第一章](01_ai_intro/README.md) → [第四章](04_machine_learning/README.md) → [第六章](06_llm/README.md) → [第十二章](12_prompt_advanced/README.md) → [第十四章](14_agents/README.md)，适合有编程基础的读者。
-
 ## 第一部分：AI 基础入门
 
 * [第一章 走进人工智能世界](01_ai_intro/README.md)
   * [1.1 那个永远认不出猫的超级计算机](01_ai_intro/1.1_what_is_ai.md)
   * [1.2 达特茅斯的夏天与漫长的寒冬](01_ai_intro/1.2_ai_history.md)
-  * [1.3 为什么贾维斯还不够聪明](01_ai_intro/1.3_ai_types.md)
+  * [1.3 为什么贾维斯还不够聪明？](01_ai_intro/1.3_ai_types.md)
   * [1.4 消失的收银员与看不见的算法](01_ai_intro/1.4_ai_applications.md)
   * [本章小结](01_ai_intro/summary.md)
 
@@ -26,7 +21,7 @@
 * [第三章 AI 技术生态与工具全景](03_ai_ecosystem/README.md)
   * [3.1 盖房子的艺术](03_ai_ecosystem/3.1_tech_stack.md)
   * [3.2 选云厂商就像选厨房](03_ai_ecosystem/3.2_platforms.md)
-  * [3.3 开源的盛宴](03_ai_ecosystem/3.3_frameworks.md)
+  * [3.3 开源的盛宴：Hold 住你的 Hugging Face](03_ai_ecosystem/3.3_frameworks.md)
   * [3.4 中央厨房与自热火锅](03_ai_ecosystem/3.4_cloud_edge.md)
   * [本章小结](03_ai_ecosystem/summary.md)
 
@@ -55,32 +50,32 @@
   * [6.3 Transformer 的注意力机制详解](06_llm/6.3_transformer_attention.md)
   * [6.4 预训练与微调](06_llm/6.4_pretrain_finetune.md)
   * [6.5 主流大模型](06_llm/6.5_major_llms.md)
-  * [6.6 大模型的部署与推理](06_llm/6.6_deployment.md)
+  * [6.6 大模型的部署与推理：让模型跑起来](06_llm/6.6_deployment.md)
   * [本章小结](06_llm/summary.md)
 
 * [第七章 推理模型与推理计算](07_reasoning_models/README.md)
   * [7.1 两种思维方式：System 1 vs System 2](07_reasoning_models/7.1_system1_vs_system2.md)
   * [7.2 推理模型的工作原理](07_reasoning_models/7.2_how_reasoning_works.md)
-  * [7.3 推理计算（Inference-Time Compute）](07_reasoning_models/7.3_inference_compute.md)
+  * [7.3 推理计算：新的AI范式](07_reasoning_models/7.3_inference_compute.md)
   * [7.4 主流推理模型深度对比](07_reasoning_models/7.4_major_reasoning_models.md)
   * [7.5 推理模型的局限与成本](07_reasoning_models/7.5_limitations_costs.md)
-  * [本章小结](07_reasoning_models/summary.md)
+  * [第七章 小结：推理模型与推理计算](07_reasoning_models/summary.md)
 
 * [第八章 新架构与创新案例](08_new_architectures/README.md)
-  * [8.1 Transformer 的二次复杂度问题](08_new_architectures/8.1_transformer_limitation.md)
-  * [8.2 状态空间模型（SSM）入门](08_new_architectures/8.2_ssm_basics.md)
-  * [8.3 混合架构的未来](08_new_architectures/8.3_hybrid_architectures.md)
-  * [8.4 长上下文与持久记忆](08_new_architectures/8.4_long_context.md)
-  * [8.5 DeepSeek 是什么：从小创业到独角兽](08_new_architectures/8.5_deepseek_story.md)
-  * [8.6 技术创新：MLA 和 MoE](08_new_architectures/8.6_mla_moe_innovation.md)
+  * [8.1 问题的根源：Transformer 的二次复杂度](08_new_architectures/8.1_transformer_limitation.md)
+  * [8.2 状态空间模型入门](08_new_architectures/8.2_ssm_basics.md)
+  * [8.3 混合架构的未来：Jamba、Bamba、Titans](08_new_architectures/8.3_hybrid_architectures.md)
+  * [8.4 长上下文与持久记忆：新能力的社会影响](08_new_architectures/8.4_long_context.md)
+  * [8.5 DeepSeek 是什么：从小创业到 AI 独角兽](08_new_architectures/8.5_deepseek_story.md)
+  * [8.6 DeepSeek 的技术创新：MLA 和 MoE](08_new_architectures/8.6_mla_moe_innovation.md)
   * [8.7 DeepSeek-R1：推理模型的黑马](08_new_architectures/8.7_deepseek_r1.md)
-  * [本章小结](08_new_architectures/summary.md)
+  * [第八章 小结：超越 Transformer 的 SSM 混合架构](08_new_architectures/summary.md)
 
 * [第九章 多模态与生成式 AI](09_multimodal_genai/README.md)
   * [9.1 多模态学习](09_multimodal_genai/9.1_multimodal.md)
-  * [9.2 图像生成技术](09_multimodal_genai/9.2_image_generation.md)
+  * [9.2 图像生成与扩散模型](09_multimodal_genai/9.2_image_generation.md)
   * [9.3 视频与音频生成](09_multimodal_genai/9.3_video_audio.md)
-  * [9.4 多模态融合与应用](09_multimodal_genai/9.4_fusion.md)
+  * [9.4 原生全模态与具身智能](09_multimodal_genai/9.4_fusion.md)
   * [本章小结](09_multimodal_genai/summary.md)
 
 ## 第三部分：实战应用技巧
@@ -106,7 +101,7 @@
   * [12.2 结构化输出](12_prompt_advanced/12.2_structured_output.md)
   * [12.3 迭代优化](12_prompt_advanced/12.3_iterative.md)
   * [12.4 高级提示词技巧](12_prompt_advanced/12.4_advanced_techniques.md)
-  * [12.5 上下文工程：从提示词到知识库](12_prompt_advanced/12.5_context_engineering.md)
+  * [12.5 上下文工程：AI 时代的基本素养](12_prompt_advanced/12.5_context_engineering.md)
   * [本章小结](12_prompt_advanced/summary.md)
 
 * [第十三章 AI 实战应用场景](13_scenarios/README.md)
@@ -123,7 +118,7 @@
   * [14.1 什么是智能体？](14_agents/14.1_what_is_agent.md)
   * [14.2 智能体是如何工作的？](14_agents/14.2_planning_action.md)
   * [14.3 低代码智能体开发平台](14_agents/14.3_no_code_platform.md)
-  * [14.4 多智能体协作系统](14_agents/14.4_multi_agent_systems.md)
+  * [14.4 多智能体协作系统：从独奏到交响乐](14_agents/14.4_multi_agent_systems.md)
   * [本章小结](14_agents/summary.md)
 
 * [第十五章 AI 伦理、安全与未来](15_ethics_future/README.md)
@@ -140,7 +135,7 @@
 
 ## 附录
 
-* [附录 A：术语表](appendices/appendix_a_glossary.md)
+* [附录 A：AI 核心术语表](appendices/appendix_a_glossary.md)
 * [附录 B：常用 AI 工具与资源汇总](appendices/appendix_b_tools.md)
 * [附录 C：推荐阅读与学习资源](appendices/appendix_c_resources.md)
 * [附录 D：AI 学习路线图](appendices/appendix_d_learning_path.md)
