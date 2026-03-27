@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -13,7 +14,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Create Release
+
+      - name: Install Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser fonts-noto-cjk
+
+      - name: Install mdpress (latest)
+        run: |
+          LATEST_TAG=$(curl -fsSL https://api.github.com/repos/yeasy/mdpress/releases/latest | jq -r .tag_name)
+          VERSION="${LATEST_TAG#v}"
+          echo "Installing mdpress $VERSION"
+          curl -fsSL "https://github.com/yeasy/mdPress/releases/download/$LATEST_TAG/mdpress_${VERSION}_linux_amd64.tar.gz" -o mdpress.tar.gz
+          tar xzf mdpress.tar.gz
+          sudo mv mdpress /usr/local/bin/
+          mdpress --version
+
+      - name: Build PDF
+        run: mdpress build --format pdf --output ai_beginner_guide.pdf
+
+      - name: Create Release with PDF
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
+          files: ai_beginner_guide.pdf
+
+      - name: Upload PDF as artifact
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai_beginner_guide-pdf
+          path: ai_beginner_guide.pdf
