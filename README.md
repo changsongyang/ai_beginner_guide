@@ -6,7 +6,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/yeasy/ai_beginner_guide?style=social)](https://github.com/yeasy/ai_beginner_guide)
 [![Release](https://img.shields.io/github/release/yeasy/ai_beginner_guide.svg)](https://github.com/yeasy/ai_beginner_guide/releases)
 [![Online Reading](https://img.shields.io/badge/在线阅读-GitBook-brightgreen)](https://yeasy.gitbook.io/ai_beginner_guide)
-[![PDF](https://img.shields.io/badge/PDF-下载-orange)](https://github.com/yeasy/ai_beginner_guide/releases/latest/download/ai_beginner_guide.pdf)
+[![PDF](https://img.shields.io/badge/PDF-下载-orange)](https://github.com/yeasy/ai_beginner_guide/releases/latest)
 
 > 普通人看的 AI 入门。从零开始，掌握人工智能的核心知识与实践技能
 
