@@ -217,19 +217,19 @@ mdpress serve
 
 | 书名 | 说明 |
 |------|------|
-| [《大模型提示词工程指南》](https://github.com/yeasy/prompt_engineering_guide) | 系统掌握与 AI 高效对话的提示词技术 |
-| [《大模型上下文工程权威指南》](https://github.com/yeasy/context_engineering_guide) | 从提示词工程进阶到上下文工程 |
-| [《Claude 技术指南》](https://github.com/yeasy/claude_guide) | 深入掌握 Claude 的核心能力与最佳实践 |
-| [《智能体 AI 权威指南》](https://github.com/yeasy/agentic_ai_guide) | 全面学习智能体架构、多智能体协作与工程实践 |
-| [《大模型安全权威指南》](https://github.com/yeasy/ai_security_guide) | 了解大语言模型安全攻防之道 |
-| [《OpenClaw 从入门到精通》](https://github.com/yeasy/openclaw_guide) | 开源智能体框架的实践入门 |
-| [《大模型原理与架构》](https://github.com/yeasy/llm_internals) | 深入理解大语言模型底层逻辑与架构 |
+| [《大模型提示词工程指南》](https://yeasy.gitbook.io/prompt_engineering_guide) | 系统掌握与 AI 高效对话的提示词技术 |
+| [《大模型上下文工程权威指南》](https://yeasy.gitbook.io/context_engineering_guide) | 从提示词工程进阶到上下文工程 |
+| [《Claude 技术指南》](https://yeasy.gitbook.io/claude_guide) | 深入掌握 Claude 的核心能力与最佳实践 |
+| [《智能体 AI 权威指南》](https://yeasy.gitbook.io/agentic_ai_guide) | 全面学习智能体架构、多智能体协作与工程实践 |
+| [《大模型安全权威指南》](https://yeasy.gitbook.io/ai_security_guide) | 了解大语言模型安全攻防之道 |
+| [《OpenClaw 从入门到精通》](https://yeasy.gitbook.io/openclaw_guide) | 开源智能体框架的实践入门 |
+| [《大模型原理与架构》](https://yeasy.gitbook.io/llm_internals) | 深入理解大语言模型底层逻辑与架构 |
 
 > 💡 **推荐路径**：零基础学 AI → 提示词工程 → 上下文工程 / Claude 技术指南 → 智能体 AI → 大模型安全
 
 ---
 
-> **📚 延伸阅读**：学完基础后，推荐按以下路径深入：[《大模型提示词工程指南》](https://github.com/yeasy/prompt_engineering_guide) → [《智能体 AI 权威指南》](https://github.com/yeasy/agentic_ai_guide) → [《OpenClaw 从入门到精通》](https://github.com/yeasy/openclaw_guide)。
+> **📚 延伸阅读**：学完基础后，推荐按以下路径深入：[《大模型提示词工程指南》](https://yeasy.gitbook.io/prompt_engineering_guide) → [《智能体 AI 权威指南》](https://yeasy.gitbook.io/agentic_ai_guide) → [《OpenClaw 从入门到精通》](https://yeasy.gitbook.io/openclaw_guide)。
 
 ## 许可证
 
