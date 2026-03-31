@@ -21,3 +21,5 @@ AI 正在从聊天机器人进化为智能体（Agent）——不仅能“说”
 **Part B：多智能体协作**
 
 - **[14.4 多智能体协作系统](14.4_multi_agent_systems.md)**：从独奏到交响乐，协作模式、架构与实战
+
+> 💡 **延伸阅读**：如需深入学习智能体技术，请参阅[《智能体 AI 权威指南》](https://yeasy.gitbook.io/agentic_ai_guide)和[《OpenClaw 从入门到精通》](https://yeasy.gitbook.io/openclaw_guide)。
