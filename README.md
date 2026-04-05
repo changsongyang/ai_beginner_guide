@@ -201,7 +201,7 @@ brew tap yeasy/tap && brew install mdpress
 mdpress serve
 ```
 
-启动后，访问 [本地阅读地址](http://localhost:4000) 即可阅读本书。
+启动后，访问 [本地阅读地址](http://localhost:9000) 即可阅读本书。
 
 ## 参与贡献
 
@@ -224,6 +224,7 @@ mdpress serve
 | [《大模型安全权威指南》](https://yeasy.gitbook.io/ai_security_guide) | 了解大语言模型安全攻防之道 |
 | [《OpenClaw 从入门到精通》](https://yeasy.gitbook.io/openclaw_guide) | 开源智能体框架的实践入门 |
 | [《大模型原理与架构》](https://yeasy.gitbook.io/llm_internals) | 深入理解大语言模型底层逻辑与架构 |
+| [《智能体 Harness 工程指南》](https://yeasy.gitbook.io/harness_engineering_guide) | 深入智能体系统的工程基础设施设计与实现 |
 
 > 💡 **推荐路径**：零基础学 AI → 提示词工程 → 上下文工程 / Claude 技术指南 → 智能体 AI → 大模型安全
 
