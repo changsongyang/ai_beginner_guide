@@ -20,8 +20,8 @@
    - 不同问题可以根据复杂度动态分配推理资源
 
 4. **四大推理模型对比**
-   - **OpenAI 推理路线（o 系列到 GPT-5.4）**：逻辑和代码能力强，当前默认主线已转向 GPT-5.4
-   - **Claude Extended Thinking**：有同理心的思想家，自然的写作能力
+   - **OpenAI 推理路线（o 系列与 GPT-5 系列）**：逻辑和代码能力强，支持推理和基础模型两条路线
+   - **Claude Extended Thinking（3.7 Sonnet）/ Adaptive Thinking（Opus 4.7）**：有同理心的思想家，自然的写作能力
    - **DeepSeek-R1**：经济的工程师，成本最低，可本地部署
    - **Gemini（Deep Research 模式）**：知识的聚合家，擅长研究型信息整合
 
@@ -120,7 +120,7 @@
 
 ## 推荐阅读与后续学习
 
-- **深入学习**：OpenAI GPT-5.4 与 o 系列（o3、o4-mini）文档，了解当前主线与历史推理路线的关系
+- **深入学习**：OpenAI GPT-5 及其迭代版本与 o 系列文档，了解基础模型与推理模型的发展
 - **实践体验**：亲自使用Claude Extended Thinking和DeepSeek-R1，感受不同的思考方式
 - **理论基础**：丹尼尔·卡尼曼的《快思慢想》，理解System 1和System 2的心理学基础
 - **未来方向**：关注Google的新研究，推理计算与搜索的融合
