@@ -42,7 +42,7 @@
 | 推理计算 | 在用户提问时分配计算资源进行推理 |
 | 推理token（思考token） | 用于思考而非输出的token，通常计费更低 |
 | 思考预算（Thinking Budget） | 控制模型在回答前最多可用多少推理token |
-| Adaptive Thinking | Claude 4.6+ 推荐的推理模式，由模型自行决定思考深度 |
+| Adaptive Thinking | Opus 4.7 和 Sonnet 4.6 支持的推理模式，由模型自行决定思考深度 |
 | 知识蒸馏 | 将大模型的能力压缩到小模型中 |
 | 多路径探索 | 推理过程中尝试多个方法并选择最优 |
 
