@@ -20,9 +20,9 @@
    - 不同问题可以根据复杂度动态分配推理资源
 
 4. **四大推理模型对比**
-   - **OpenAI 推理路线（o 系列与 GPT-5 系列）**：逻辑和代码能力强，支持推理和基础模型两条路线
-   - **Claude Extended Thinking（3.7 Sonnet）/ Adaptive Thinking（Opus 4.7）**：有同理心的思想家，自然的写作能力
-   - **DeepSeek-R1**：经济的工程师，成本最低，可本地部署
+   - **OpenAI 推理路线（当前主线：GPT-5.5, 2026-04-23）**：逻辑和代码能力强，支持推理和基础模型两条路线
+   - **Claude Extended Thinking（3.7 Sonnet, 2025-02-24）/ Adaptive Thinking（Opus 4.7, 2026-04-16）**：有同理心的思想家，自然的写作能力
+   - **DeepSeek-R1（2025-01-20）**：经济的工程师，成本最低，可本地部署
    - **Gemini（Deep Research 模式）**：知识的聚合家，擅长研究型信息整合
 
 5. **推理模型的局限与成本**
@@ -42,7 +42,7 @@
 | 推理计算 | 在用户提问时分配计算资源进行推理 |
 | 推理token（思考token） | 用于思考而非输出的token，通常计费更低 |
 | 思考预算（Thinking Budget） | 控制模型在回答前最多可用多少推理token |
-| Adaptive Thinking | Opus 4.7 和 Sonnet 4.6 支持的推理模式，由模型自行决定思考深度 |
+| Adaptive Thinking | Opus 4.7 和 Sonnet 4.6 支持的推理模式，模型会根据问题难度自动调节思考深度 |
 | 知识蒸馏 | 将大模型的能力压缩到小模型中 |
 | 多路径探索 | 推理过程中尝试多个方法并选择最优 |
 

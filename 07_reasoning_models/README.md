@@ -6,7 +6,7 @@
 
 2024年底，一个重大转变正在AI领域发生。传统的大语言模型都在追求”快速反应”——输入提示词，瞬间得到答案。但现在，一个新的思路正在成为主流：**给AI充足的时间来思考**。
 
-这就是”推理模型”（Reasoning Models）的核心理念。OpenAI 从 o 系列进一步演进到 GPT-5（2025-08-07）及其迭代版本，Anthropic 的 Claude Extended Thinking（3.7 Sonnet，2025-02-24）和 Claude Adaptive Thinking（Opus 4.7，2026-04-16）、DeepSeek 的 R1（2025-01-20）等一系列能力路线的出现，标志着 AI 已经进入了一个新的阶段。
+这就是”推理模型”（Reasoning Models）的核心理念。OpenAI 从 o 系列进一步演进到 GPT-5（2025-08）及其迭代版本（当前主线为 GPT-5.5，2026-04-23），Anthropic 的 Claude Extended Thinking（3.7 Sonnet，2025-02-24）和 Claude Adaptive Thinking（Opus 4.7，2026-04-16）、DeepSeek 的 R1（2025-01-20）等一系列能力路线的出现，标志着 AI 已经进入了一个新的阶段。
 
 ## 本章内容
 
