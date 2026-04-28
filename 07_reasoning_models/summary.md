@@ -21,7 +21,7 @@
 
 4. **四大推理模型对比**
    - **OpenAI 推理路线（当前主线：GPT-5.5, 2026-04-23）**：逻辑和代码能力强，支持推理和基础模型两条路线
-   - **Claude Extended Thinking（3.7 Sonnet, 2025-02-24）/ Adaptive Thinking（Opus 4.7, 2026-04-16）**：有同理心的思想家，自然的写作能力
+   - **Claude Extended Thinking（3.7 Sonnet, 2025-02-24；Sonnet 4.6, 2026-02-17；Opus 4.6）/ Adaptive Thinking（Opus 4.7, 2026-04-16；Sonnet 4.6）**：有同理心的思想家，自然的写作能力。注意 Opus 4.7 不支持 Extended Thinking，仅支持 Adaptive Thinking
    - **DeepSeek-R1（2025-01-20）**：经济的工程师，成本最低，可本地部署
    - **Gemini（Deep Research 模式）**：知识的聚合家，擅长研究型信息整合
 
