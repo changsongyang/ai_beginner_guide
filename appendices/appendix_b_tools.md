@@ -37,5 +37,5 @@
 | 工具名称 | 网址 | 特点 | 适用场景 |
 | :--- | :--- | :--- | :--- |
 | **GitHub Copilot** | [功能页](https://github.com/features/copilot) | 代码补全 | 程序员必备，实时写代码 |
-| **Cursor** | [cursor.sh](https://cursor.sh) | AI 编辑器 | 可以在代码库里对话的 IDE |
+| **Cursor** | [cursor.com](https://cursor.com) | AI 编辑器 | 可以在代码库里对话的 IDE |
 | **Coze (扣子)** | [coze.cn](https://coze.cn) | 低代码智能体 | 搭建自己的 AI 机器人 |
