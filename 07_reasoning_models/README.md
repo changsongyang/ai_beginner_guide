@@ -4,14 +4,14 @@
 
 ---
 
-2024年底，一个重大转变正在AI领域发生。传统的大语言模型都在追求”快速反应”——输入提示词，瞬间得到答案。但现在，一个新的思路正在成为主流：**给AI充足的时间来思考**。
+2024年底，一个重大转变正在AI领域发生。传统的大语言模型都在追求“快速反应”——输入提示词，瞬间得到答案。但现在，一个新的思路正在成为主流：**给AI充足的时间来思考**。
 
-这就是”推理模型”（Reasoning Models）的核心理念。OpenAI 从 o 系列进一步演进到 GPT-5（2025-08）及其迭代版本（当前主线为 GPT-5.5，2026-04-23），Anthropic 的 Claude Extended Thinking（3.7 Sonnet，2025-02-24）和 Claude Adaptive Thinking（Opus 4.7，2026-04-16）、DeepSeek 的 R1（2025-01-20）等一系列能力路线的出现，标志着 AI 已经进入了一个新的阶段。
+这就是“推理模型”（Reasoning Models）的核心理念。OpenAI 从 o 系列进一步演进到 GPT-5（2025-08）及其迭代版本（当前主线为 GPT-5.5，2026-04-23），Anthropic 的 Claude Extended Thinking（3.7 Sonnet，2025-02-24）和 Claude Adaptive Thinking（Opus 4.7，2026-04-16）、DeepSeek 的 R1（2025-01-20）等一系列能力路线的出现，标志着 AI 已经进入了一个新的阶段。
 
 ## 本章内容
 
 - **7.1 两种思维方式：System 1 vs System 2**：理解为什么有时候快速反应，有时候需要深入思考
-- **7.2 推理模型的工作原理**：解析 OpenAI o 系列到 GPT-5 及其迭代版本、Claude Extended Thinking 等模型如何进行”思考”
+- **7.2 推理模型的工作原理**：解析 OpenAI o 系列到 GPT-5 及其迭代版本、Claude Extended Thinking 等模型如何进行“思考”
 - **7.3 推理计算（Inference-Time Compute）**：掌握新的计算范式
 - **7.4 各主流推理模型对比**：深度求索 R1、OpenAI 推理路线、Claude Extended Thinking 和 Adaptive Thinking 的核心差异
 - **7.5 推理模型的局限与成本**：认识到思考的代价
