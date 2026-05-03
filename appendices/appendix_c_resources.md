@@ -10,7 +10,7 @@
 
 - **[OpenAI Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)**：官方的提示词教程，含金量极高。
 - **[Anthropic Library](https://github.com/anthropics/anthropic-cookbook)**：Claude 官方的提示词库，有很多精彩案例。
-- **[Hugging Face LLM Course](https://huggingface.co/learn/llm-course)**：开源界的 AI 圣经，免费的 LLM 课程（原 NLP Course，2025 年起扩展更名为 LLM Course）。
+- **[Hugging Face LLM Course](https://huggingface.co/learn/llm-course)**：开源界的 AI 圣经，免费的 LLM 课程（原 NLP Course，已扩展更名为 LLM Course）。
 
 ## 经典必读论文
 
