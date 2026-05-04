@@ -28,6 +28,7 @@
 
 | 工具名称 | 网址 | 特点 | 适用场景 |
 | :--- | :--- | :--- | :--- |
+| **Claude Design** | [claude.ai](https://claude.ai) | AI 设计协作 | 海报、原型图、幻灯片设计 |
 | **Gamma** | [gamma.app](https://gamma.app) | AI 做 PPT | 一句话生成精美 PPT |
 | **Notion AI** | [notion.so](https://notion.so) | 笔记助手 | 笔记润色、自动摘要、翻译 |
 | **通义听悟** | [tingwu.aliyun.com](https://tingwu.aliyun.com) | 语音转文字 | 会议纪要整理、视频转写 |
@@ -38,4 +39,5 @@
 | :--- | :--- | :--- | :--- |
 | **GitHub Copilot** | [功能页](https://github.com/features/copilot) | 代码补全 | 程序员必备，实时写代码 |
 | **Cursor** | [cursor.com](https://cursor.com) | AI 编辑器 | 可以在代码库里对话的 IDE |
+| **Claude Code** | [claude.ai](https://claude.ai) | 终端编程助手 | 命令行 AI 编程、代码审查 |
 | **Coze (扣子)** | [coze.cn](https://coze.cn) | 低代码智能体 | 搭建自己的 AI 机器人 |
