@@ -1,6 +1,6 @@
 # 目录
 
-* [前言](README.md)
+* [零基础学 AI](README.md)
 
 ## 第一部分：AI 基础入门
 
@@ -69,7 +69,7 @@
   * [8.5 DeepSeek 是什么：从小创业到 AI 独角兽](08_new_architectures/8.5_deepseek_story.md)
   * [8.6 DeepSeek 的技术创新：MLA 和 MoE](08_new_architectures/8.6_mla_moe_innovation.md)
   * [8.7 DeepSeek-R1：推理模型的黑马](08_new_architectures/8.7_deepseek_r1.md)
-  * [第八章 小结：超越 Transformer 的 SSM 混合架构](08_new_architectures/summary.md)
+  * [第八章 小结](08_new_architectures/summary.md)
 
 * [第九章 多模态与生成式 AI](09_multimodal_genai/README.md)
   * [9.1 多模态学习](09_multimodal_genai/9.1_multimodal.md)
