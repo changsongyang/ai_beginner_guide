@@ -294,8 +294,8 @@ graph TD
 - Crew AI：新兴，快速发展
 
 商用：
-- OpenAI Swarm：基于GPT-4
-- Claude Teams API：基于Claude
+- OpenAI Agents SDK：OpenAI 多智能体官方框架（2025-03 接替实验性 Swarm）
+- Claude Agent SDK（Anthropic）：构建与运行 Claude 智能体的官方 SDK
 
 自建：
 - 直接调用API + Redis队列
