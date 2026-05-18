@@ -140,3 +140,4 @@
 * [附录 C：推荐阅读与学习资源](appendices/appendix_c_resources.md)
 * [附录 D：AI 学习路线图](appendices/appendix_d_learning_path.md)
 * [附录 E：工程师配套实验代码](labs/README.md)
+* [附录 F：快变事实核验表](appendices/appendix_f_volatile_facts.md)
