@@ -3,167 +3,148 @@ Agent Output Evaluation (Evals) - Basic Framework
 
 Corresponds to: Chapter 14 - AI 智能体 (AI Agents)
 
-NOTE: This file is a SKELETON / SCAFFOLDING ONLY. Concrete evaluation logic is
-left as an exercise — wire it up to your agent framework of choice. See
-14.1_what_is_agent.md for the conceptual walkthrough.
-
-This module provides fundamental evaluation metrics and patterns for assessing
-AI agent output consistency, quality, and correctness.
-
-Key Concepts:
-- Determinism evaluation: Does the agent produce consistent outputs for same input?
-- Answer relevance: How well does the output answer the user's question?
-- Faithfulness: Does the output rely on provided context vs. hallucinations?
-- Safety: Are outputs aligned with safety guidelines?
-
-TODO:
-- Implement consistency scoring across multiple runs
-- Add semantic similarity metrics (cosine similarity, embeddings)
-- Integrate with ground truth datasets and rubrics
-- Build eval dashboard for tracking agent performance over time
-- Implement cost-aware metrics (tokens used, latency)
-- Add human-in-the-loop evaluation framework
-- Support batch evaluation and regression testing
+This file is a runnable local eval harness. It uses simple lexical metrics so
+beginners can understand the evaluation loop without API keys or model calls.
+Replace the scoring functions with embeddings, LLM judges, or task-specific
+graders when moving beyond this teaching example.
 """
 
-from typing import Any, Callable
+from __future__ import annotations
+
+import re
+from statistics import mean
+from typing import Callable
+
+
+TOKEN_RE = re.compile(r"[A-Za-z0-9_]+|[\u4e00-\u9fff]")
+
+
+def tokenize(text: str) -> set[str]:
+    """Return normalized tokens for lightweight overlap metrics."""
+    return {token.lower() for token in TOKEN_RE.findall(text)}
+
+
+def jaccard_similarity(left: str, right: str) -> float:
+    """Compute token-set Jaccard similarity."""
+    left_tokens = tokenize(left)
+    right_tokens = tokenize(right)
+    if not left_tokens and not right_tokens:
+        return 1.0
+    if not left_tokens or not right_tokens:
+        return 0.0
+    return len(left_tokens & right_tokens) / len(left_tokens | right_tokens)
 
 
 class AgentEvaluator:
-    """
-    Basic framework for evaluating AI agent outputs.
-
-    TODO: Expand with more sophisticated metrics and evaluation patterns
-    """
+    """Small local evaluator for agent output consistency and grounding."""
 
     def __init__(self):
-        self.results = []
+        self.results: list[dict] = []
 
-    def consistency_eval(self, agent_func: Callable, query: str, runs: int = 3) -> dict:
-        """
-        Evaluate consistency of agent outputs across multiple runs.
-
-        Args:
-            agent_func: The agent function to evaluate
-            query: Input query to the agent
-            runs: Number of times to run the agent
-
-        Returns:
-            Dictionary with consistency score and outputs
-
-        TODO:
-        - Add edit distance / semantic similarity between outputs
-        - Implement variance metrics
-        - Create visualization of output distribution
-        """
-        outputs = []
-        for _ in range(runs):
-            output = agent_func(query)
-            outputs.append(output)
-
-        return {
+    def consistency_eval(self, agent_func: Callable[[str], str], query: str, runs: int = 3) -> dict:
+        """Evaluate output consistency across repeated runs."""
+        outputs = [agent_func(query) for _ in range(runs)]
+        result = {
             "query": query,
             "outputs": outputs,
             "consistency_score": self._compute_consistency(outputs),
         }
+        self.results.append(result)
+        return result
 
     def relevance_eval(self, agent_output: str, reference_answer: str) -> float:
+        """Score how much the output overlaps with the expected answer."""
+        return jaccard_similarity(agent_output, reference_answer)
+
+    def faithfulness_eval(self, agent_output: str, context: str) -> dict:
         """
-        Evaluate how relevant the agent's output is to the expected answer.
+        Estimate whether answer tokens are supported by the provided context.
 
-        Args:
-            agent_output: The actual output from the agent
-            reference_answer: Ground truth or expected answer
-
-        Returns:
-            Relevance score (0.0 to 1.0)
-
-        TODO:
-        - Implement BLEU, ROUGE, or semantic similarity metrics
-        - Add token overlap analysis
-        - Support multi-reference answers
+        This is a teaching metric, not a hallucination detector. It is useful
+        for showing why production evals need explicit context grounding.
         """
-        # Placeholder: would implement semantic similarity here
-        pass
-
-    def faithfulness_eval(
-        self, agent_output: str, context: str
-    ) -> dict:
-        """
-        Evaluate whether the output is faithful to provided context.
-
-        Detects potential hallucinations or unsupported claims.
-
-        Args:
-            agent_output: The agent's generated output
-            context: The provided context the agent should use
-
-        Returns:
-            Dictionary with faithfulness score and detected issues
-
-        TODO:
-        - Implement claim extraction from output
-        - Create entailment checking against context
-        - Build hallucination detection system
-        - Add attribution tracking (which context supports which claim)
-        """
-        pass
+        output_tokens = tokenize(agent_output)
+        context_tokens = tokenize(context)
+        unsupported = sorted(output_tokens - context_tokens)
+        score = 1.0 if not output_tokens else 1 - (len(unsupported) / len(output_tokens))
+        return {
+            "faithfulness_score": max(0.0, score),
+            "unsupported_tokens": unsupported[:20],
+        }
 
     def _compute_consistency(self, outputs: list[str]) -> float:
-        """
-        Compute consistency metric across multiple outputs.
+        """Average pairwise similarity across outputs."""
+        if len(outputs) <= 1:
+            return 1.0
 
-        TODO: Implement robust similarity metric
-        """
-        if not outputs:
-            return 0.0
-        # Placeholder implementation
-        return len(set(outputs)) == 1  # True if all outputs identical
+        scores = []
+        for i, left in enumerate(outputs):
+            for right in outputs[i + 1:]:
+                scores.append(jaccard_similarity(left, right))
+        return mean(scores) if scores else 1.0
 
 
-def run_eval_suite(agent_func: Callable, test_cases: list[dict]) -> dict:
-    """
-    Run complete evaluation suite on an agent.
-
-    Args:
-        agent_func: The agent to evaluate
-        test_cases: List of test cases with 'query' and optional 'expected_answer'
-
-    Returns:
-        Aggregated evaluation results
-
-    TODO:
-    - Support parallel evaluation
-    - Add performance profiling (latency, token usage)
-    - Create detailed error reports
-    - Build regression testing suite
-    - Implement automated threshold-based pass/fail
-    """
+def run_eval_suite(agent_func: Callable[[str], str], test_cases: list[dict]) -> dict:
+    """Run consistency, relevance, and faithfulness checks over test cases."""
     evaluator = AgentEvaluator()
-    results = {"test_cases_evaluated": 0, "details": []}
+    details = []
 
     for test in test_cases:
-        # Basic consistency check
-        consistency = evaluator.consistency_eval(
-            agent_func, test["query"], runs=2
-        )
-        results["details"].append(consistency)
-        results["test_cases_evaluated"] += 1
+        output = agent_func(test["query"])
+        detail = {
+            "query": test["query"],
+            "output": output,
+            "consistency": evaluator.consistency_eval(agent_func, test["query"], runs=2),
+        }
 
-    return results
+        if "expected_answer" in test:
+            detail["relevance_score"] = evaluator.relevance_eval(
+                output,
+                test["expected_answer"],
+            )
+
+        if "context" in test:
+            detail["faithfulness"] = evaluator.faithfulness_eval(
+                output,
+                test["context"],
+            )
+
+        details.append(detail)
+
+    relevance_scores = [
+        item["relevance_score"]
+        for item in details
+        if "relevance_score" in item
+    ]
+    return {
+        "test_cases_evaluated": len(details),
+        "average_relevance": mean(relevance_scores) if relevance_scores else None,
+        "details": details,
+    }
 
 
 if __name__ == "__main__":
-    # Example usage
-    def dummy_agent(query: str) -> str:
-        """Placeholder agent for testing."""
-        return f"Response to: {query}"
+    def simple_agent(query: str) -> str:
+        """Deterministic toy agent for the local eval demo."""
+        knowledge = {
+            "What is machine learning?": "Machine learning learns patterns from data.",
+            "Explain neural networks": "Neural networks are layered models that learn representations.",
+        }
+        return knowledge.get(query, "I do not have enough context to answer.")
 
     test_cases = [
-        {"query": "What is machine learning?", "expected_answer": "..."},
-        {"query": "Explain neural networks", "expected_answer": "..."},
+        {
+            "query": "What is machine learning?",
+            "expected_answer": "Machine learning learns patterns from data.",
+            "context": "Machine learning learns patterns from data.",
+        },
+        {
+            "query": "Explain neural networks",
+            "expected_answer": "Neural networks are layered models.",
+            "context": "Neural networks are layered models that learn representations.",
+        },
     ]
 
-    results = run_eval_suite(dummy_agent, test_cases)
+    results = run_eval_suite(simple_agent, test_cases)
     print(f"Evaluated {results['test_cases_evaluated']} test cases")
-    print("Eval framework stub - expand with metrics and testing logic")
+    print(f"Average relevance: {results['average_relevance']:.2f}")

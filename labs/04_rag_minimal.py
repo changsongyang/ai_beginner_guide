@@ -3,92 +3,144 @@ Minimal RAG (Retrieval-Augmented Generation) Pipeline Example
 
 Corresponds to: Chapter 12.5 - 上下文工程（Context Engineering）
 
-NOTE: This file is a SKELETON / SCAFFOLDING ONLY. The retrieve/augment/generate
-functions are stubs (`pass`); plug in your own vector DB and LLM client to make
-the pipeline runnable. See 12.5_context_engineering.md for the conceptual walkthrough.
+This is a fully runnable, dependency-free mini RAG example. It intentionally
+uses a tiny in-memory corpus and lexical retrieval so beginners can see the
+complete loop before replacing each part with embeddings, a vector database,
+and a real LLM API.
 
-This module demonstrates the core concepts of RAG:
-1. Document ingestion and embedding
-2. Vector similarity search (retrieval)
-3. Context-augmented generation
-
-TODO:
-- Implement document chunking strategy (size & overlap)
-- Set up vector database (faiss, chromadb, or pinecone)
-- Integrate with LLM API (OpenAI, Anthropic, DeepSeek, etc.)
-- Add evaluation metrics (retrieval precision, answer relevance)
-- Optimize prompt template for RAG context injection
-- Handle edge cases (empty results, long context truncation)
+Pipeline:
+1. Retrieve: rank local document chunks by TF-IDF cosine similarity.
+2. Augment: format the top chunks into a bounded context block.
+3. Generate: produce an extractive answer from the retrieved context.
 """
 
-# Placeholder implementation - expand based on requirements
-def retrieve(query: str, k: int = 3) -> list[str]:
-    """
-    Retrieve top-k relevant documents based on query.
+from __future__ import annotations
 
-    Args:
-        query: User's question or search query
-        k: Number of documents to retrieve
-
-    Returns:
-        List of retrieved document chunks
-
-    TODO: Implement vector similarity search
-    """
-    pass
+import math
+import re
+from collections import Counter
+from dataclasses import dataclass
 
 
-def augment_context(query: str, retrieved_docs: list[str]) -> str:
-    """
-    Prepare augmented context by combining query and retrieved documents.
+TOKEN_RE = re.compile(r"[A-Za-z0-9_]+|[\u4e00-\u9fff]")
 
-    Args:
-        query: Original user query
-        retrieved_docs: Documents retrieved from knowledge base
+DOCUMENTS = [
+    "Transformer 的注意力机制会为查询 token 计算它与其他 token 的相关性。",
+    "RAG 会先检索外部知识，再把相关片段放进提示词上下文。",
+    "上下文工程关注模型能看到什么信息，而不仅仅是提示词怎么写。",
+    "向量数据库适合大规模语义检索；本示例用词频检索展示最小闭环。",
+    "生成答案时应引用检索到的上下文，避免编造未提供的信息。",
+]
 
-    Returns:
-        Formatted context string for LLM
 
-    TODO: Design optimal context ordering and formatting
-    """
-    pass
+@dataclass(frozen=True)
+class SearchHit:
+    """A retrieved document chunk and its score."""
+
+    rank: int
+    score: float
+    text: str
+
+
+def tokenize(text: str) -> list[str]:
+    """Tokenize English words and Chinese characters for a tiny local demo."""
+    return [token.lower() for token in TOKEN_RE.findall(text)]
+
+
+def build_idf(documents: list[str]) -> dict[str, float]:
+    """Build an IDF table for the current in-memory corpus."""
+    doc_count = len(documents)
+    document_frequency: Counter[str] = Counter()
+    for doc in documents:
+        document_frequency.update(set(tokenize(doc)))
+
+    return {
+        token: math.log((doc_count + 1) / (count + 1)) + 1
+        for token, count in document_frequency.items()
+    }
+
+
+def vectorize(text: str, idf: dict[str, float]) -> dict[str, float]:
+    """Convert text into a sparse TF-IDF vector."""
+    counts = Counter(tokenize(text))
+    total = sum(counts.values()) or 1
+    return {
+        token: (count / total) * idf.get(token, 1.0)
+        for token, count in counts.items()
+    }
+
+
+def cosine_similarity(a: dict[str, float], b: dict[str, float]) -> float:
+    """Compute cosine similarity between two sparse vectors."""
+    if not a or not b:
+        return 0.0
+    shared = set(a) & set(b)
+    dot = sum(a[token] * b[token] for token in shared)
+    norm_a = math.sqrt(sum(value * value for value in a.values()))
+    norm_b = math.sqrt(sum(value * value for value in b.values()))
+    if norm_a == 0 or norm_b == 0:
+        return 0.0
+    return dot / (norm_a * norm_b)
+
+
+def retrieve(query: str, k: int = 3, documents: list[str] | None = None) -> list[SearchHit]:
+    """Retrieve top-k relevant document chunks for a query."""
+    corpus = documents or DOCUMENTS
+    idf = build_idf(corpus)
+    query_vector = vectorize(query, idf)
+
+    scored = []
+    for doc in corpus:
+        score = cosine_similarity(query_vector, vectorize(doc, idf))
+        scored.append((score, doc))
+
+    top_hits = sorted(scored, key=lambda item: item[0], reverse=True)[:k]
+    return [
+        SearchHit(rank=index + 1, score=score, text=text)
+        for index, (score, text) in enumerate(top_hits)
+        if score > 0
+    ]
+
+
+def augment_context(query: str, retrieved_docs: list[SearchHit]) -> str:
+    """Format retrieved chunks into a prompt-style context block."""
+    if not retrieved_docs:
+        return f"问题：{query}\n\n未检索到相关上下文。"
+
+    context_lines = [
+        f"[{hit.rank}] score={hit.score:.3f} {hit.text}"
+        for hit in retrieved_docs
+    ]
+    return "检索上下文：\n" + "\n".join(context_lines) + f"\n\n问题：{query}"
 
 
 def generate(context: str, query: str) -> str:
     """
-    Generate answer using LLM with augmented context.
+    Generate a conservative extractive answer.
 
-    Args:
-        context: Retrieved and formatted context
-        query: User's question
-
-    Returns:
-        Generated answer from LLM
-
-    TODO: Integrate with LLM API and optimize prompts
+    A production RAG system would call an LLM here. This local demo instead
+    returns the most relevant retrieved snippets so the file stays runnable
+    without API keys.
     """
-    pass
+    if "未检索到相关上下文" in context:
+        return "我没有在本地知识库中找到足够依据，不能可靠回答。"
+
+    evidence = [
+        line.split(" ", 2)[-1]
+        for line in context.splitlines()
+        if line.startswith("[")
+    ]
+    joined = "；".join(evidence)
+    return f"基于检索结果，{query} 的答案是：{joined}"
 
 
 def rag_pipeline(query: str) -> str:
-    """
-    Complete RAG pipeline: Retrieve -> Augment -> Generate.
-
-    Args:
-        query: User's question
-
-    Returns:
-        Generated answer augmented with retrieved context
-    """
-    retrieved = retrieve(query)
-    context = augment_context(query, retrieved)
-    answer = generate(context, query)
-    return answer
+    """Complete RAG pipeline: Retrieve -> Augment -> Generate."""
+    hits = retrieve(query)
+    context = augment_context(query, hits)
+    return generate(context, query)
 
 
 if __name__ == "__main__":
-    # Example usage
-    sample_query = "How does transformer attention mechanism work?"
-    # answer = rag_pipeline(sample_query)
-    # print(answer)
-    print("RAG pipeline stub - implementation pending")
+    sample_query = "RAG 和上下文工程有什么关系？"
+    print(rag_pipeline(sample_query))
