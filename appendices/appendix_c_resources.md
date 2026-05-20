@@ -23,7 +23,7 @@
 3. **Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (2022)**
    - 发现了[思维链](../12_prompt_advanced/12.1_chain_of_thought.md)的神奇作用。
 4. **Shaping AI's Impact on Billions of Lives (2024)**
-   - 由 Jeff Dean、David Patterson 等顶级学者撰写，提出了负责任发展 AI 的五大原则和 18 个具体里程碑。[arXiv:2412.02730](https://arxiv.org/abs/2412.02730)
+   - 由 Mariano-Florentino Cuéllar、Jeff Dean、David Patterson 等作者撰写，提出了把 AI 研究引向公共利益的一组原则和 18 个具体里程碑。[arXiv:2412.02730](https://arxiv.org/abs/2412.02730)
 
 ## 优质课程与教程
 
