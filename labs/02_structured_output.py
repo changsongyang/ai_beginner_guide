@@ -1,5 +1,5 @@
 # labs/02_structured_output.py
-# 对应第十章：结构化输出（API级JSON强约束演示）
+# 对应第 12.2 节：结构化输出（API级JSON强约束演示）
 # 目标：将“请输出 JSON”升级为“必须符合 JSON Schema”，构建机器可验闭环。
 
 import json

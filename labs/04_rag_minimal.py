@@ -1,7 +1,11 @@
 """
 Minimal RAG (Retrieval-Augmented Generation) Pipeline Example
 
-Corresponds to: Chapter 7.5 - 上下文工程（Context Engineering）
+Corresponds to: Chapter 12.5 - 上下文工程（Context Engineering）
+
+NOTE: This file is a SKELETON / SCAFFOLDING ONLY. The retrieve/augment/generate
+functions are stubs (`pass`); plug in your own vector DB and LLM client to make
+the pipeline runnable. See 12.5_context_engineering.md for the conceptual walkthrough.
 
 This module demonstrates the core concepts of RAG:
 1. Document ingestion and embedding

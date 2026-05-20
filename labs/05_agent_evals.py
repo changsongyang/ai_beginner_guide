@@ -1,7 +1,11 @@
 """
 Agent Output Evaluation (Evals) - Basic Framework
 
-Corresponds to: Chapter 12 - AI智能体与自动化 (AI Agents & Automation)
+Corresponds to: Chapter 14 - AI 智能体 (AI Agents)
+
+NOTE: This file is a SKELETON / SCAFFOLDING ONLY. Concrete evaluation logic is
+left as an exercise — wire it up to your agent framework of choice. See
+14.1_what_is_agent.md for the conceptual walkthrough.
 
 This module provides fundamental evaluation metrics and patterns for assessing
 AI agent output consistency, quality, and correctness.
