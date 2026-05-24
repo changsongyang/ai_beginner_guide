@@ -31,7 +31,7 @@
   - 《[ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/)》（免费短课，经典中的经典）。
   - 《[AI for Everyone](https://www.coursera.org/learn/ai-for-everyone)》（通俗易懂的 AI 原理课）。
   - **Coursera: Deep Learning Specialization**：系统性强的深度学习专项课程。
-- **[李宏毅（台大）](https://speech.ee.ntu.edu.tw/~hylee/ml/)**：
+- **[李宏毅（台大）](https://www.youtube.com/@HungyiLeeNTU)**：
   - 他的机器学习课程风趣幽默，用宝可梦讲 AI，非常适合华语初学者。[YouTube 频道](https://www.youtube.com/@HungyiLeeNTU)。
 - **[Andrej Karpathy](https://karpathy.ai/)**：
   - 前 OpenAI 研究负责人（后回归个人研究/教育方向），他的 “[Let's build GPT](https://www.youtube.com/watch?v=kCc8FmEb1nY)” 视频是硬核党的必修课。

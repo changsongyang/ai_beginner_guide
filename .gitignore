@@ -22,6 +22,10 @@ Thumbs.db
 logs/
 *.log
 
+# Python bytecode
+__pycache__/
+*.pyc
+
 # Temp
 tmp/
 temp/
