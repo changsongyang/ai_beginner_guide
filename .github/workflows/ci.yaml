@@ -36,6 +36,8 @@ jobs:
           tar xzf "$archive"
           sudo mv mdpress /usr/local/bin/
           mdpress --version
+      - name: Validate book rules
+        run: python3 check_project_rules.py
       - name: Build PDF
         run: mdpress build --format pdf --output ai_beginner_guide.pdf
       - name: Upload PDF as artifact
