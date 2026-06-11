@@ -59,7 +59,7 @@
   * [7.3 推理计算：新的AI范式](07_reasoning_models/7.3_inference_compute.md)
   * [7.4 主流推理模型深度对比](07_reasoning_models/7.4_major_reasoning_models.md)
   * [7.5 推理模型的局限与成本](07_reasoning_models/7.5_limitations_costs.md)
-  * [第七章 小结：推理模型与推理计算](07_reasoning_models/summary.md)
+  * [本章小结](07_reasoning_models/summary.md)
 
 * [第八章 新架构与创新案例](08_new_architectures/README.md)
   * [8.1 问题的根源：Transformer 的二次复杂度](08_new_architectures/8.1_transformer_limitation.md)
@@ -69,7 +69,7 @@
   * [8.5 DeepSeek 是什么：从小创业到 AI 独角兽](08_new_architectures/8.5_deepseek_story.md)
   * [8.6 DeepSeek 的技术创新：MLA 和 MoE](08_new_architectures/8.6_mla_moe_innovation.md)
   * [8.7 DeepSeek-R1：推理模型的黑马](08_new_architectures/8.7_deepseek_r1.md)
-  * [第八章 小结](08_new_architectures/summary.md)
+  * [本章小结](08_new_architectures/summary.md)
 
 * [第九章 多模态与生成式 AI](09_multimodal_genai/README.md)
   * [9.1 多模态学习](09_multimodal_genai/9.1_multimodal.md)
