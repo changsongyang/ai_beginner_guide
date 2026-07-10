@@ -179,6 +179,14 @@ def workflow_step_script(workflow_text, step_name):
     return textwrap.dedent(workflow_text[script_start:script_end])
 
 
+def workflow_step_scripts_in_document_order(workflow_text, step_names):
+    ordered_names = sorted(
+        step_names,
+        key=lambda name: workflow_text.index(f"      - name: {name}\n"),
+    )
+    return tuple(workflow_step_script(workflow_text, name) for name in ordered_names)
+
+
 def load_verifier():
     if not VERIFIER.exists():
         raise AssertionError("tools/verify_artifacts.py must exist")
@@ -320,6 +328,15 @@ class WorkflowSafetyTests(unittest.TestCase):
         self.assertIn("GH_TOKEN", preview_publish)
         self.assertIn("github.token", preview_publish)
 
+    def test_preview_publish_steps_follow_tag_release_asset_order(self) -> None:
+        preview = (ROOT / ".github/workflows/preview-pdf.yml").read_text(encoding="utf-8")
+        synchronize = preview.index("      - name: Synchronize mutable preview tag\n")
+        release = preview.index("      - name: Create or update preview release\n")
+        upload = preview.index("      - name: Upload verified preview artifacts\n")
+
+        self.assertLess(synchronize, release)
+        self.assertLess(release, upload)
+
     def run_preview_scripts(
         self,
         scenario,
@@ -328,9 +345,12 @@ class WorkflowSafetyTests(unittest.TestCase):
         sha=TEST_SHA,
     ):
         preview = (ROOT / ".github/workflows/preview-pdf.yml").read_text(encoding="utf-8")
-        scripts = (
-            workflow_step_script(preview, "Synchronize mutable preview tag"),
-            workflow_step_script(preview, "Create or update preview release"),
+        scripts = workflow_step_scripts_in_document_order(
+            preview,
+            (
+                "Synchronize mutable preview tag",
+                "Create or update preview release",
+            ),
         )
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
