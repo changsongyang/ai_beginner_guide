@@ -1,50 +1,71 @@
-# labs/01_ml_basics.py
-# 对应第四章：机器学习基础闭环（线性回归最小示例）
-# 目标：展示从数据划分 -> 模型训练 -> 评估指标的严谨环节。
+"""Lab 01: a deterministic linear-regression train/test/evaluate loop."""
 
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
+from __future__ import annotations
 
-def run_experiment():
-    print("--- 机器学习基础：线性回归最小闭环 ---\n")
-    
-    # 1. 制造“假数据” (模拟房价)
-    # X：房屋面积 (平方米)，y：价格 (万)
-    np.random.seed(42)  # 保证结果可复现
-    X = 2 * np.random.rand(100, 1) * 100 + 50  # 面积分布在 50~250 平米
-    # 真实关系：价格 = 5 * 面积 + 20 + 噪音
-    y = 5 * X + 20 + np.random.randn(100, 1) * 50 
+import json
+import math
+import random
 
-    # 2. 数据划分：为什么必须分离“训练集”和“测试集”？
-    # -> 避免模型“死记硬背”，验证其泛化能力。
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    print(f"数据总数: {len(X)} | 训练集: {len(X_train)} | 测试集: {len(X_test)}\n")
 
-    # 3. 确立目标函数并训练模型 (即“算”的过程)
-    model = LinearRegression()
-    model.fit(X_train, y_train)
+def _fit_line(features: list[float], targets: list[float]) -> tuple[float, float]:
+    feature_mean = sum(features) / len(features)
+    target_mean = sum(targets) / len(targets)
+    covariance = sum(
+        (feature - feature_mean) * (target - target_mean)
+        for feature, target in zip(features, targets)
+    )
+    variance = sum((feature - feature_mean) ** 2 for feature in features)
+    coefficient = covariance / variance
+    intercept = target_mean - coefficient * feature_mean
+    return coefficient, intercept
 
-    # 模型学到的规律
-    print(">> 模型学到的“规律”:")
-    print(f"\t每增加1平米，价格增加: {model.coef_[0][0]:.2f} 万 (斜率/权重)")
-    print(f"\t基础底价: {model.intercept_[0]:.2f} 万 (截距/偏差)\n")
 
-    # 4. 可观测的误差指标评估 (避免用类比代替严谨)
-    # 测试集上的预测结果
-    y_pred = model.predict(X_test)
-    
-    # RMSE (均方根误差)：预测值与真实值平均相差多少万
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-    # R2 Score：模型解释了多少数据的变异 (越接近 1 越好)
-    r2 = r2_score(y_test, y_pred)
+def run_experiment() -> dict[str, float | int]:
+    """Fit a line to fixed synthetic housing data and return observable metrics."""
+    generator = random.Random(42)
+    areas = [50.0 + generator.random() * 200.0 for _ in range(100)]
+    prices = [5.0 * area + 20.0 + generator.gauss(0.0, 50.0) for area in areas]
 
-    print(">> 模型表现评估 (测试集):")
-    print(f"\t均方根误差 (RMSE): {rmse:.2f} 万")
-    print(f"\tR² 分数: {r2:.4f}\n")
-    
-    print("结论：一旦指标达到业务可接受的阈值，训练完成。")
+    indices = list(range(100))
+    generator.shuffle(indices)
+    train_indices, test_indices = indices[:80], indices[80:]
+    train_x = [areas[index] for index in train_indices]
+    train_y = [prices[index] for index in train_indices]
+    coefficient, intercept = _fit_line(train_x, train_y)
+
+    test_y = [prices[index] for index in test_indices]
+    predictions = [coefficient * areas[index] + intercept for index in test_indices]
+    mean_squared_error = sum(
+        (actual - predicted) ** 2 for actual, predicted in zip(test_y, predictions)
+    ) / len(test_y)
+    target_mean = sum(test_y) / len(test_y)
+    total_variance = sum((actual - target_mean) ** 2 for actual in test_y)
+    residual_variance = sum(
+        (actual - predicted) ** 2 for actual, predicted in zip(test_y, predictions)
+    )
+
+    return {
+        "samples": 100,
+        "train_samples": len(train_indices),
+        "test_samples": len(test_indices),
+        "coefficient": round(coefficient, 6),
+        "intercept": round(intercept, 6),
+        "rmse": round(math.sqrt(mean_squared_error), 6),
+        "r2": round(1.0 - residual_variance / total_variance, 6),
+    }
+
+
+def evaluate(result: dict[str, float | int]) -> dict[str, object]:
+    """Apply the lab's published acceptance thresholds."""
+    checks = {
+        "split_is_80_20": (result["train_samples"], result["test_samples"]) == (80, 20),
+        "coefficient_is_near_five": 4.5 < float(result["coefficient"]) < 5.5,
+        "rmse_is_in_expected_range": 20.0 < float(result["rmse"]) < 70.0,
+        "r2_exceeds_threshold": float(result["r2"]) > 0.9,
+    }
+    return {"passed": all(checks.values()), "checks": checks}
+
 
 if __name__ == "__main__":
-    run_experiment()
+    experiment = run_experiment()
+    print(json.dumps({"result": experiment, "evaluation": evaluate(experiment)}, ensure_ascii=False, indent=2))

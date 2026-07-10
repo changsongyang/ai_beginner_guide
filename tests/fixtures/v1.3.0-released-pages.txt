@@ -1,0 +1,15 @@
+零基础学 AI
+Author yeasy
+Version 1.3.0
+
+Built with mdPress
+
+mdPress
+Why Teams Use mdPress
+Best Fit
+Showcase
+Installation
+Get Started In 60 Seconds
+Existing Projects
+
+第一章 走进人工智能世界

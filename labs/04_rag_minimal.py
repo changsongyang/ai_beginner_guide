@@ -19,7 +19,8 @@ from __future__ import annotations
 import math
 import re
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+import json
 
 
 TOKEN_RE = re.compile(r"[A-Za-z0-9_]+|[\u4e00-\u9fff]")
@@ -88,10 +89,12 @@ def retrieve(query: str, k: int = 3, documents: list[str] | None = None) -> list
     corpus = documents or DOCUMENTS
     idf = build_idf(corpus)
     query_vector = vectorize(query, idf)
+    explicit_terms = {token for token in tokenize(query) if len(token) > 1}
 
     scored = []
     for doc in corpus:
         score = cosine_similarity(query_vector, vectorize(doc, idf))
+        score += 0.25 * len(explicit_terms & set(tokenize(doc)))
         scored.append((score, doc))
 
     top_hits = sorted(scored, key=lambda item: item[0], reverse=True)[:k]
@@ -141,6 +144,32 @@ def rag_pipeline(query: str) -> str:
     return generate(context, query)
 
 
+def run_experiment() -> dict[str, object]:
+    """Run one fixed query and return the complete retrieval trace."""
+    query = "RAG 和上下文工程有什么关系？"
+    hits = retrieve(query)
+    context = augment_context(query, hits)
+    answer = generate(context, query)
+    return {
+        "query": query,
+        "hits": [asdict(hit) for hit in hits],
+        "context": context,
+        "answer": answer,
+    }
+
+
+def evaluate(result: dict[str, object]) -> dict[str, object]:
+    """Confirm retrieval, context assembly, and grounded generation."""
+    hits = result.get("hits", [])
+    answer = str(result.get("answer", ""))
+    checks = {
+        "retrieved_relevant_context": bool(hits) and "RAG" in hits[0]["text"],
+        "context_is_explicit": "检索上下文" in str(result.get("context", "")),
+        "answer_is_grounded": "基于检索结果" in answer and hits[0]["text"] in answer,
+    }
+    return {"passed": all(checks.values()), "checks": checks}
+
+
 if __name__ == "__main__":
-    sample_query = "RAG 和上下文工程有什么关系？"
-    print(rag_pipeline(sample_query))
+    experiment = run_experiment()
+    print(json.dumps({"result": experiment, "evaluation": evaluate(experiment)}, ensure_ascii=False, indent=2))

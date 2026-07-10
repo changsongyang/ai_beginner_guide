@@ -1,63 +1,84 @@
-# labs/03_dl_overfitting.py
-# 对应第五章：深度学习训练（过拟合与早停机制观测）
-# 目标：构建一个故意产生过拟合的网络，并观测其训练集与验证集的 Loss 曲线分离(剪刀差)。
+"""Lab 03: deterministic overfitting and early-stopping evidence on CPU.
 
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import DataLoader, TensorDataset
+A high-capacity polynomial is used as a compact proxy for a neural network so
+the learning-curve behavior is visible without installing a training framework.
+The same train-loss-down/validation-loss-up signal motivates early stopping in
+deep learning.
+"""
 
-def run_experiment():
-    print("--- 深度学习实战：过拟合可观测证据 ---\n")
-    
-    # 1. 制造极少量、且带噪音的数据 (故意制造过拟合倾向)
-    torch.manual_seed(42)
-    X = torch.rand(50, 10)  # 仅 50 条样本，每条 10 个特征
-    y = (X.sum(dim=1) > 5).float().view(-1, 1) # 简单规则生成的二分类标签
-    
-    # 将一部分数据人为变为干扰噪音
-    y[:10] = 1 - y[:10]
-    
-    # 强行切分：前 40 条训练，后 10 条验证
-    X_train, y_train = X[:40], y[:40]
-    X_val, y_val = X[40:], y[40:]
-    
-    # 2. 构建一个“用力过度”的庞大神经网络
-    # 对于简单的 50 个样本而言，3个隐藏层共计几百个神经元，极易产生“死记硬背”
-    model = nn.Sequential(
-        nn.Linear(10, 64), nn.ReLU(),
-        nn.Linear(64, 64), nn.ReLU(),
-        nn.Linear(64, 1), nn.Sigmoid()
-    )
-    
-    criterion = nn.BCELoss() # 二分类交叉熵
-    optimizer = optim.Adam(model.parameters(), lr=0.01)
-    
-    print("模型构建完毕，开始训练（无早停机制）...\n")
-    
-    # 3. 记录日志，观察 Loss 变化
-    epochs = 100
+from __future__ import annotations
+
+import json
+import math
+import random
+
+
+def _mse(weights: list[float], data: list[tuple[float, float]]) -> float:
+    total = 0.0
+    for feature, target in data:
+        prediction = sum(weight * feature**power for power, weight in enumerate(weights))
+        total += (prediction - target) ** 2
+    return total / len(data)
+
+
+def run_experiment() -> dict[str, object]:
+    """Train a noisy high-capacity model and return its fixed learning curve."""
+    generator = random.Random(42)
+    training = []
+    for index in range(12):
+        feature = -1.0 + 2.0 * index / 11.0
+        target = math.sin(math.pi * feature) + generator.gauss(0.0, 0.8)
+        training.append((feature, target))
+    validation = [
+        (feature := -1.0 + 2.0 * index / 80.0, math.sin(math.pi * feature))
+        for index in range(81)
+    ]
+
+    weights = [0.0] * 19
+    epochs = 4000
+    learning_rate = 0.15
+    curve: list[dict[str, float | int]] = []
     for epoch in range(1, epochs + 1):
-        model.train()
-        optimizer.zero_grad()
-        out_train = model(X_train)
-        loss_train = criterion(out_train, y_train)
-        loss_train.backward()
-        optimizer.step()
-        
-        # 验证阶段 (不更新梯度)
-        model.eval()
-        with torch.no_grad():
-            out_val = model(X_val)
-            loss_val = criterion(out_val, y_val)
-            
-        # 观测现象：大概在 20~30 epoch 之后，train loss 继续向 0 逼近，
-        # 而 val loss 开始反弹上升 —— 这就是典型的“过拟合”铁证。
-        if epoch % 20 == 0 or epoch == 1:
-            print(f"Epoch {epoch:3d} | Train Loss: {loss_train.item():.4f} | Val Loss: {loss_val.item():.4f}")
+        gradients = [0.0] * len(weights)
+        for feature, target in training:
+            powers = [feature**power for power in range(len(weights))]
+            error = sum(weight * value for weight, value in zip(weights, powers)) - target
+            for index, value in enumerate(powers):
+                gradients[index] += 2.0 * error * value / len(training)
+        for index, gradient in enumerate(gradients):
+            weights[index] -= learning_rate * gradient
 
-    print("\n结论：你可以清晰看到，随着训练推进，Train Loss 越来越小，但 Val Loss 却不降反升。")
-    print("在工业界，我们通常会引入 Early Stopping 机制，当 Val Loss 连续多个 epoch 反弹时强行终止训练。")
+        if epoch == 1 or epoch % 100 == 0:
+            curve.append(
+                {
+                    "epoch": epoch,
+                    "train_loss": round(_mse(weights, training), 8),
+                    "validation_loss": round(_mse(weights, validation), 8),
+                }
+            )
+
+    best = min(curve, key=lambda point: float(point["validation_loss"]))
+    return {
+        "epochs": epochs,
+        "best_epoch": best["epoch"],
+        "initial_train_loss": curve[0]["train_loss"],
+        "final_train_loss": curve[-1]["train_loss"],
+        "best_validation_loss": best["validation_loss"],
+        "final_validation_loss": curve[-1]["validation_loss"],
+        "curve": curve,
+    }
+
+
+def evaluate(result: dict[str, object]) -> dict[str, object]:
+    """Confirm that continued fitting after the best epoch harms validation."""
+    checks = {
+        "training_loss_decreases": result["final_train_loss"] < result["initial_train_loss"],
+        "early_stop_precedes_end": result["best_epoch"] < result["epochs"],
+        "validation_rebounds": result["final_validation_loss"] > result["best_validation_loss"],
+    }
+    return {"passed": all(checks.values()), "checks": checks}
+
 
 if __name__ == "__main__":
-    run_experiment()
+    experiment = run_experiment()
+    print(json.dumps({"result": experiment, "evaluation": evaluate(experiment)}, ensure_ascii=False, indent=2))

@@ -2,6 +2,8 @@
 
 ## 本章核心概念回顾
 
+模型名称、可用性与 thinking 支持矩阵以[快变事实核验表](../appendices/appendix_f_volatile_facts.md)为准。
+
 ### 主要观点
 
 1. **从System 1到System 2**
@@ -21,7 +23,7 @@
 
 4. **四大推理模型对比**
    - **OpenAI 推理路线（学习快照：2026-05 官方模型页列出 gpt-5.5）**：逻辑和代码能力强，支持推理和基础模型两条路线
-   - **Claude Extended Thinking（3.7 Sonnet, 2025-02-24；Sonnet 4.6, 2026-02-17；Opus 4.6；Haiku 4.5）/ Adaptive Thinking（Fable 5 / Mythos 5, 2026-06-09 起常开，曾于 2026-06-12 暂停访问、截至 2026-07-09 已恢复；Opus 4.8, 2026-05；Opus 4.7, 2026-04-16；Opus 4.6；Sonnet 4.6）**：有同理心的思想家，自然的写作能力。注意：Opus 4.8/4.7 仅支持 Adaptive Thinking（不支持 Extended Thinking），而 Opus 4.6、Sonnet 4.6 两种都支持。Haiku 4.5 是首个支持 Extended Thinking 的最小模型
+   - **Claude thinking 路线**：Claude Fable 5、Opus 4.8 与 **Claude Sonnet 5** 使用 Adaptive Thinking，Haiku 4.5 使用 Extended Thinking；Fable 5 广泛可用，Mythos 5 为受限可用
    - **DeepSeek-R1（2025-01-20）**：经济的工程师，成本最低，可本地部署
    - **Gemini（Deep Research 模式）**：知识的聚合家，擅长研究型信息整合
 
@@ -42,7 +44,7 @@
 | 推理计算 | 在用户提问时分配计算资源进行推理 |
 | 推理token（思考token） | 用于思考而非最终输出的token，按输出 token 计费 |
 | 思考预算（Thinking Budget） | 控制模型在回答前最多可用多少推理token |
-| Adaptive Thinking | Fable 5 / Mythos 5（常开；曾于 2026-06-12 暂停访问，截至 2026-07-09 已恢复）、Opus 4.8、Opus 4.7、Opus 4.6 和 Sonnet 4.6 支持的推理模式，模型会根据问题难度自动调节思考深度 |
+| Adaptive Thinking | Claude Fable 5（常开）、Opus 4.8 与 Claude Sonnet 5 使用的推理模式；具体支持矩阵以快变事实核验表为准 |
 | 知识蒸馏 | 将大模型的能力压缩到小模型中 |
 | 多路径探索 | 推理过程中尝试多个方法并选择最优 |
 

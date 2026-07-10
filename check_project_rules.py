@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import re
 import sys
+from datetime import date, timedelta
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
@@ -21,6 +22,11 @@ SKIP_DIRS = {
 }
 LINK_RE = re.compile(r"(!?)\[[^\]]*\]\(([^)\s]+(?:\s+\"[^\"]*\")?)\)")
 FENCE_RE = re.compile(r"^\s*(`{3,}|~{3,})")
+VOLATILE_METADATA_RE = re.compile(
+    r"`verified_at`:\s*(?P<verified>\d{4}-\d{2}-\d{2})\s*·\s*"
+    r"`expires_at`:\s*(?P<expires>\d{4}-\d{2}-\d{2})\s*·\s*"
+    r"`ttl_days`:\s*(?P<ttl>\d+)"
+)
 
 
 def iter_markdown_files() -> list[Path]:
@@ -118,6 +124,48 @@ def check_summary_links() -> list[str]:
     return check_links(summary, summary.read_text(encoding="utf-8", errors="ignore"))
 
 
+def check_volatile_facts(
+    path: Path | None = None,
+    today: date | None = None,
+) -> list[str]:
+    """Require the volatile-fact ledger to be reverified every 30 days."""
+    ledger = path or ROOT / "appendices/appendix_f_volatile_facts.md"
+    label = str(ledger)
+    try:
+        label = str(ledger.relative_to(ROOT))
+    except ValueError:
+        pass
+    if not ledger.is_file():
+        return [f"{label}: missing volatile-fact ledger"]
+
+    match = VOLATILE_METADATA_RE.search(ledger.read_text(encoding="utf-8"))
+    if match is None:
+        return [
+            f"{label}: missing verified_at/expires_at/ttl_days metadata for 30-day refresh"
+        ]
+
+    try:
+        verified_at = date.fromisoformat(match.group("verified"))
+        expires_at = date.fromisoformat(match.group("expires"))
+    except ValueError as error:
+        return [f"{label}: invalid volatile-fact date: {error}"]
+    ttl_days = int(match.group("ttl"))
+    issues: list[str] = []
+    if ttl_days != 30:
+        issues.append(f"{label}: volatile facts must use a TTL of exactly 30 days")
+    if expires_at - verified_at != timedelta(days=ttl_days):
+        issues.append(f"{label}: expires_at must equal verified_at plus ttl_days")
+
+    current_date = today or date.today()
+    if verified_at > current_date:
+        issues.append(f"{label}: verified_at cannot be in the future")
+    if current_date > expires_at:
+        issues.append(
+            f"{label}: volatile facts expired on {expires_at.isoformat()}; refresh official sources"
+        )
+    return issues
+
+
 def main() -> int:
     issues: list[str] = []
     files = iter_markdown_files()
@@ -126,6 +174,7 @@ def main() -> int:
         issues.extend(check_fences(path, text))
         issues.extend(check_links(path, text))
     issues.extend(check_summary_links())
+    issues.extend(check_volatile_facts())
 
     if issues:
         print("\n".join(sorted(set(issues))))

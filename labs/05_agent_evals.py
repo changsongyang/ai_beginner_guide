@@ -11,6 +11,7 @@ graders when moving beyond this teaching example.
 
 from __future__ import annotations
 
+import json
 import re
 from statistics import mean
 from typing import Callable
@@ -123,15 +124,17 @@ def run_eval_suite(agent_func: Callable[[str], str], test_cases: list[dict]) -> 
     }
 
 
-if __name__ == "__main__":
-    def simple_agent(query: str) -> str:
-        """Deterministic toy agent for the local eval demo."""
-        knowledge = {
-            "What is machine learning?": "Machine learning learns patterns from data.",
-            "Explain neural networks": "Neural networks are layered models that learn representations.",
-        }
-        return knowledge.get(query, "I do not have enough context to answer.")
+def simple_agent(query: str) -> str:
+    """Deterministic toy agent for the local evaluation loop."""
+    knowledge = {
+        "What is machine learning?": "Machine learning learns patterns from data.",
+        "Explain neural networks": "Neural networks are layered models that learn representations.",
+    }
+    return knowledge.get(query, "I do not have enough context to answer.")
 
+
+def run_experiment() -> dict:
+    """Evaluate two fixed agent tasks and return a serializable report."""
     test_cases = [
         {
             "query": "What is machine learning?",
@@ -144,7 +147,25 @@ if __name__ == "__main__":
             "context": "Neural networks are layered models that learn representations.",
         },
     ]
+    return run_eval_suite(simple_agent, test_cases)
 
-    results = run_eval_suite(simple_agent, test_cases)
-    print(f"Evaluated {results['test_cases_evaluated']} test cases")
-    print(f"Average relevance: {results['average_relevance']:.2f}")
+
+def evaluate(result: dict) -> dict[str, object]:
+    """Apply stable minimum thresholds to the fixed evaluation report."""
+    details = result.get("details", [])
+    checks = {
+        "two_cases_ran": result.get("test_cases_evaluated") == 2 and len(details) == 2,
+        "relevance_is_acceptable": float(result.get("average_relevance") or 0.0) >= 0.8,
+        "outputs_are_consistent": all(
+            detail["consistency"]["consistency_score"] == 1.0 for detail in details
+        ),
+        "answers_are_grounded": all(
+            detail["faithfulness"]["faithfulness_score"] == 1.0 for detail in details
+        ),
+    }
+    return {"passed": all(checks.values()), "checks": checks}
+
+
+if __name__ == "__main__":
+    experiment = run_experiment()
+    print(json.dumps({"result": experiment, "evaluation": evaluate(experiment)}, ensure_ascii=False, indent=2))
