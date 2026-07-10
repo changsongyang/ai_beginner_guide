@@ -3,17 +3,29 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import re
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKFLOWS = (
+WORKFLOW_DIR = ROOT / ".github/workflows"
+WORKFLOWS = tuple(sorted((*WORKFLOW_DIR.glob("*.yml"), *WORKFLOW_DIR.glob("*.yaml"))))
+BUILD_WORKFLOWS = (
     ROOT / ".github/workflows/ci.yaml",
     ROOT / ".github/workflows/auto-release.yml",
 )
+MDPRESS_WORKFLOWS = BUILD_WORKFLOWS + (ROOT / ".github/workflows/preview-pdf.yml",)
 VERIFIER = ROOT / "tools/verify_artifacts.py"
+ACTION_PINS = {
+    "actions/checkout": ("df4cb1c069e1874edd31b4311f1884172cec0e10", "v6.0.3"),
+    "actions/upload-artifact": ("043fb46d1a93c77aae656e7c1c64a875d1fc6a0a", "v7.0.1"),
+    "browser-actions/setup-chrome": ("2e1d749697dd1612b833dba4a722266286fbefcd", "v2.1.2"),
+    "dependabot/fetch-metadata": ("25dd0e34f4fe68f24cc83900b1fe3fe149efef98", "v3.1.0"),
+    "softprops/action-gh-release": ("3bb12739c298aeb8a4eeaf626c5b8d85266b0e65", "v2.6.2"),
+}
 
 
 def load_verifier():
@@ -29,7 +41,7 @@ def load_verifier():
 
 class WorkflowSafetyTests(unittest.TestCase):
     def test_mdpress_is_extracted_to_an_isolated_directory(self) -> None:
-        for workflow in WORKFLOWS:
+        for workflow in MDPRESS_WORKFLOWS:
             with self.subTest(workflow=workflow.name):
                 text = workflow.read_text(encoding="utf-8")
                 self.assertNotRegex(
@@ -45,22 +57,33 @@ class WorkflowSafetyTests(unittest.TestCase):
                 )
 
     def test_third_party_actions_are_pinned_and_checkout_drops_credentials(self) -> None:
+        self.assertEqual(
+            {workflow.name for workflow in WORKFLOWS},
+            {"auto-release.yml", "ci.yaml", "dependabot-automerge.yml", "preview-pdf.yml"},
+        )
         for workflow in WORKFLOWS:
             with self.subTest(workflow=workflow.name):
                 text = workflow.read_text(encoding="utf-8")
                 uses_lines = [line.strip() for line in text.splitlines() if "uses:" in line]
-                self.assertGreater(len(uses_lines), 2)
+                self.assertGreater(len(uses_lines), 0)
                 for line in uses_lines:
-                    self.assertRegex(
+                    match = re.search(
+                        r"uses:\s+(?P<action>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)@"
+                        r"(?P<sha>[0-9a-f]{40})\s+#\s+(?P<version>v\d+\.\d+\.\d+)\s*$",
                         line,
-                        r"uses:\s+[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+@[0-9a-f]{40}\s+#\s+v\d",
                     )
-                checkout_index = text.index("actions/checkout@")
-                checkout_window = text[checkout_index : checkout_index + 240]
-                self.assertIn("persist-credentials: false", checkout_window)
+                    self.assertIsNotNone(match, line)
+                    action = match.group("action")
+                    self.assertIn(action, ACTION_PINS)
+                    self.assertEqual((match.group("sha"), match.group("version")), ACTION_PINS[action])
+                self.assertIn("permissions:", text)
+                if "actions/checkout@" in text:
+                    checkout_index = text.index("actions/checkout@")
+                    checkout_window = text[checkout_index : checkout_index + 240]
+                    self.assertIn("persist-credentials: false", checkout_window)
 
     def test_builds_require_verified_pdf_html_and_source_integrity(self) -> None:
-        for workflow in WORKFLOWS:
+        for workflow in BUILD_WORKFLOWS:
             with self.subTest(workflow=workflow.name):
                 text = workflow.read_text(encoding="utf-8")
                 self.assertIn("EXPECTED_README_SHA", text)
@@ -75,6 +98,20 @@ class WorkflowSafetyTests(unittest.TestCase):
                 self.assertIn("--html", text)
                 self.assertIn("SHA256SUMS", text)
                 self.assertIn("python3 -m unittest discover -s tests -v", text)
+
+        preview = (ROOT / ".github/workflows/preview-pdf.yml").read_text(encoding="utf-8")
+        self.assertIn("EXPECTED_README_SHA", preview)
+        self.assertIn("sha256sum README.md", preview)
+        self.assertIn("python3 tools/verify_artifacts.py", preview)
+        self.assertIn("--expected-readme-sha", preview)
+        self.assertIn("--pdf dist/ai_beginner_guide.pdf", preview)
+        self.assertIn("sha256sum ai_beginner_guide.pdf > SHA256SUMS", preview)
+        self.assertIn("sha256sum -c SHA256SUMS", preview)
+        self.assertIn("dist/SHA256SUMS", preview)
+        self.assertLess(
+            preview.index("python3 tools/verify_artifacts.py"),
+            preview.index("gh release upload preview-pdf"),
+        )
 
     def test_release_does_not_treat_html_as_optional(self) -> None:
         text = (ROOT / ".github/workflows/auto-release.yml").read_text(encoding="utf-8")
@@ -98,6 +135,24 @@ class ArtifactVerifierTests(unittest.TestCase):
             "零基础学 AI\n第一章 走进人工智能世界\n第二章 AI 核心概念速览",
             expected_title="零基础学 AI",
         )
+        with patch.object(
+            sys,
+            "argv",
+            [
+                "verify_artifacts.py",
+                "--readme",
+                "README.md",
+                "--expected-readme-sha",
+                "0" * 64,
+                "--pdf",
+                "preview.pdf",
+            ],
+        ):
+            try:
+                args = verifier.parse_args()
+            except SystemExit as error:
+                self.fail(f"PDF-only artifact verification must be supported: {error}")
+        self.assertIsNone(args.html)
 
     def test_readme_hash_detects_source_mutation(self) -> None:
         verifier = load_verifier()

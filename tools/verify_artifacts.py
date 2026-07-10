@@ -94,7 +94,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--readme", type=Path, required=True)
     parser.add_argument("--expected-readme-sha", required=True)
     parser.add_argument("--pdf", type=Path, required=True)
-    parser.add_argument("--html", type=Path, required=True)
+    parser.add_argument("--html", type=Path)
     parser.add_argument("--expected-title", default=DEFAULT_TITLE)
     return parser.parse_args()
 
@@ -103,8 +103,11 @@ def main() -> int:
     args = parse_args()
     verify_readme(args.readme, args.expected_readme_sha)
     verify_pdf(args.pdf, expected_title=args.expected_title)
-    verify_html(args.html, expected_title=args.expected_title)
-    print(f"Verified source integrity and artifacts: {args.pdf}, {args.html}")
+    verified = [str(args.pdf)]
+    if args.html is not None:
+        verify_html(args.html, expected_title=args.expected_title)
+        verified.append(str(args.html))
+    print("Verified source integrity and artifacts: " + ", ".join(verified))
     return 0
 
 
