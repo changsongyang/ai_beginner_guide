@@ -170,6 +170,28 @@ class WorkflowSafetyTests(unittest.TestCase):
         self.assertIn("GH_TOKEN", preview_publish)
         self.assertIn("github.token", preview_publish)
 
+    def test_mutable_preview_explicitly_moves_tag_before_updating_release(self) -> None:
+        preview = (ROOT / ".github/workflows/preview-pdf.yml").read_text(encoding="utf-8")
+        publish = job_block(preview, "publish")
+
+        get_ref = 'gh api --silent "repos/${GITHUB_REPOSITORY}/git/ref/tags/preview-pdf"'
+        update_ref = '"repos/${GITHUB_REPOSITORY}/git/refs/tags/preview-pdf"'
+        create_ref = '"repos/${GITHUB_REPOSITORY}/git/refs"'
+        self.assertIn(get_ref, publish)
+        self.assertIn("--method PATCH", publish)
+        self.assertIn(update_ref, publish)
+        self.assertIn('--raw-field sha="$GITHUB_SHA"', publish)
+        self.assertIn("--field force=true", publish)
+        self.assertIn("--method POST", publish)
+        self.assertIn(create_ref, publish)
+        self.assertIn('--raw-field ref="refs/tags/preview-pdf"', publish)
+        self.assertIn("--verify-tag", publish)
+        self.assertLess(publish.index(get_ref), publish.index("gh release view preview-pdf"))
+        self.assertNotRegex(
+            publish,
+            r"(?ms)gh release edit preview-pdf.*?--target\s+\"?\$GITHUB_SHA",
+        )
+
 
 class ArtifactVerifierTests(unittest.TestCase):
     def test_released_v130_symptom_is_rejected(self) -> None:
