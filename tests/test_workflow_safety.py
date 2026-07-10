@@ -21,6 +21,7 @@ MDPRESS_WORKFLOWS = BUILD_WORKFLOWS + (ROOT / ".github/workflows/preview-pdf.yml
 VERIFIER = ROOT / "tools/verify_artifacts.py"
 ACTION_PINS = {
     "actions/checkout": ("df4cb1c069e1874edd31b4311f1884172cec0e10", "v6.0.3"),
+    "actions/download-artifact": ("3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c", "v8.0.1"),
     "actions/upload-artifact": ("043fb46d1a93c77aae656e7c1c64a875d1fc6a0a", "v7.0.1"),
     "browser-actions/setup-chrome": ("2e1d749697dd1612b833dba4a722266286fbefcd", "v2.1.2"),
     "dependabot/fetch-metadata": ("25dd0e34f4fe68f24cc83900b1fe3fe149efef98", "v3.1.0"),
@@ -37,6 +38,16 @@ def load_verifier():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def job_block(workflow_text: str, job_name: str) -> str:
+    match = re.search(
+        rf"(?ms)^  {re.escape(job_name)}:\n.*?(?=^  [A-Za-z0-9_-]+:\n|\Z)",
+        workflow_text,
+    )
+    if match is None:
+        raise AssertionError(f"workflow must define the {job_name!r} job")
+    return match.group(0)
 
 
 class WorkflowSafetyTests(unittest.TestCase):
@@ -114,10 +125,50 @@ class WorkflowSafetyTests(unittest.TestCase):
         )
 
     def test_release_does_not_treat_html_as_optional(self) -> None:
-        text = (ROOT / ".github/workflows/auto-release.yml").read_text(encoding="utf-8")
-        self.assertNotIn("continue-on-error: true", text)
+        auto_release = (ROOT / ".github/workflows/auto-release.yml").read_text(encoding="utf-8")
+        preview = (ROOT / ".github/workflows/preview-pdf.yml").read_text(encoding="utf-8")
+        self.assertNotIn("continue-on-error: true", auto_release)
         for suffix in (".pdf", ".html", "SHA256SUMS"):
-            self.assertIn(suffix, text)
+            self.assertIn(suffix, auto_release)
+
+        workflows = (
+            (auto_release, "release", "ai_beginner_guide-editions"),
+            (preview, "publish", "ai_beginner_guide-preview"),
+        )
+        for text, publish_job_name, artifact_name in workflows:
+            with self.subTest(publish_job=publish_job_name):
+                global_permissions = text[: text.index("jobs:")]
+                build = job_block(text, "build")
+                publish = job_block(text, publish_job_name)
+
+                self.assertNotIn("contents: write", global_permissions)
+                self.assertIn("permissions:\n      contents: read", build)
+                self.assertNotIn("contents: write", build)
+                self.assertIn("actions/upload-artifact@", build)
+                self.assertIn(f"name: {artifact_name}", build)
+
+                self.assertIn("needs: build", publish)
+                self.assertIn("permissions:\n      contents: write", publish)
+                self.assertIn("actions/download-artifact@", publish)
+                self.assertIn(f"name: {artifact_name}", publish)
+                self.assertIn("sha256sum -c SHA256SUMS", publish)
+                for forbidden in (
+                    "actions/checkout@",
+                    "mdpress",
+                    "npm install",
+                    "curl ",
+                    "sudo ",
+                    "python3 ",
+                    "tools/",
+                ):
+                    self.assertNotIn(forbidden, publish)
+
+        preview_build = job_block(preview, "build")
+        preview_publish = job_block(preview, "publish")
+        self.assertNotIn("GH_TOKEN", preview_build)
+        self.assertNotIn("github.token", preview_build)
+        self.assertIn("GH_TOKEN", preview_publish)
+        self.assertIn("github.token", preview_publish)
 
 
 class ArtifactVerifierTests(unittest.TestCase):
