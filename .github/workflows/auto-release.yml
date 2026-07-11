@@ -72,7 +72,6 @@ jobs:
 
       - name: Build required PDF and HTML editions
         env:
-          CHROME_BIN: ${{ steps.setupchrome.outputs.chrome-path }}
           TAG: ${{ steps.tag.outputs.SAFE_TAG_NAME }}
         run: |
           mkdir -p dist /tmp/mmsvg

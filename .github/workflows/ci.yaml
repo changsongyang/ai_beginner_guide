@@ -59,8 +59,6 @@ jobs:
           python3 check_project_rules.py
 
       - name: Build PDF and HTML editions
-        env:
-          CHROME_BIN: ${{ steps.setupchrome.outputs.chrome-path }}
         run: |
           mkdir -p dist /tmp/mmsvg
           mdpress build --format pdf --output dist/ai_beginner_guide.pdf
