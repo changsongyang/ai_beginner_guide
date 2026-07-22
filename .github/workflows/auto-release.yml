@@ -77,7 +77,8 @@ jobs:
           mkdir -p dist /tmp/mmsvg
           mdpress build --format pdf --output dist/ai_beginner_guide-${TAG}.pdf
           if ! timeout --signal=TERM 8m python3 tools/render_mermaid.py --book-dir . --svg-out /tmp/mmsvg; then
-            echo "Mermaid rendering unavailable; using source fallback"
+            echo "::error::Mermaid rendering failed — refusing to publish an edition with raw diagram source."
+            exit 1
           fi
           python3 tools/build_html_reader.py --book-dir . --title "零基础学 AI" \
             --svg-dir /tmp/mmsvg --out "dist/ai_beginner_guide-${TAG}.html"

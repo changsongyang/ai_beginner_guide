@@ -268,7 +268,10 @@ class WorkflowSafetyTests(unittest.TestCase):
                 self.assertRegex(text, r"mdpress build --format pdf --output dist/[^\s]+\.pdf")
                 self.assertIn("tools/build_html_reader.py", text)
                 self.assertIn("timeout --signal=TERM 8m python3 tools/render_mermaid.py", text)
-                self.assertIn("using source fallback", text)
+                # Mermaid 渲染失败必须让流水线红，不能降级发布带原始源码的版本
+                self.assertNotIn("using source fallback", text)
+                self.assertIn("Mermaid rendering failed", text)
+                self.assertIn("exit 1", text)
                 self.assertIn("--pdf", text)
                 self.assertIn("--html", text)
                 self.assertIn("SHA256SUMS", text)
