@@ -228,7 +228,13 @@ class WorkflowSafetyTests(unittest.TestCase):
     def test_third_party_actions_are_pinned_and_checkout_drops_credentials(self) -> None:
         self.assertEqual(
             {workflow.name for workflow in WORKFLOWS},
-            {"auto-release.yml", "ci.yaml", "dependabot-automerge.yml", "preview-pdf.yml"},
+            {
+                "auto-release.yml",
+                "ci.yaml",
+                "dependabot-automerge.yml",
+                "identity-guard.yaml",
+                "preview-pdf.yml",
+            },
         )
         for workflow in WORKFLOWS:
             with self.subTest(workflow=workflow.name):
