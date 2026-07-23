@@ -48,10 +48,12 @@ jobs:
           echo "${EXPECTED_README_SHA}  README.md" | sha256sum -c -
           mdpress --version
 
-      - name: Install pinned Mermaid renderer
+      - name: Install locked Mermaid CLI
         env:
           PUPPETEER_SKIP_DOWNLOAD: "true"
-        run: npm install --global @mermaid-js/mermaid-cli@10.9.1
+        run: |
+          npm ci --prefix tools/mermaid --ignore-scripts
+          echo "$GITHUB_WORKSPACE/tools/mermaid/node_modules/.bin" >> "$GITHUB_PATH"
 
       - name: Run project and lab tests
         run: |

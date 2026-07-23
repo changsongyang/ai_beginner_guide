@@ -1,0 +1,7 @@
+{
+  "name": "ai-beginner-guide-publication-tools",
+  "private": true,
+  "dependencies": {
+    "@mermaid-js/mermaid-cli": "11.16.0"
+  }
+}
