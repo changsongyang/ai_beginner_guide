@@ -76,7 +76,7 @@ jobs:
         run: |
           mkdir -p dist /tmp/mmsvg
           mdpress build --format pdf --output dist/ai_beginner_guide-${TAG}.pdf
-          if ! timeout --signal=TERM 8m python3 tools/render_mermaid.py --book-dir . --svg-out /tmp/mmsvg; then
+          if ! timeout --signal=TERM 8m python3 tools/render_mermaid.py --book-dir . --svg-out /tmp/mmsvg --strict; then
             echo "::error::Mermaid rendering failed — refusing to publish an edition with raw diagram source."
             exit 1
           fi
