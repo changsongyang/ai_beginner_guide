@@ -24,6 +24,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Check project rules
+        run: python3 check_project_rules.py
+
       - name: Record source integrity
         run: echo "EXPECTED_README_SHA=$(sha256sum README.md | awk '{print $1}')" >> "$GITHUB_ENV"
 
