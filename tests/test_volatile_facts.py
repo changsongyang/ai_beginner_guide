@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import tempfile
 import unittest
 from datetime import date
@@ -55,20 +56,34 @@ class VolatileFactTtlTests(unittest.TestCase):
     def test_main_project_check_enforces_ttl(self) -> None:
         source = (ROOT / "check_project_rules.py").read_text(encoding="utf-8")
         self.assertIn("issues.extend(check_volatile_facts())", source)
-        self.assertEqual(run_ttl_check(LEDGER, date(2026, 7, 9)), [])
+        # Check the real ledger as of its OWN verified_at rather than a hardcoded
+        # date. This line used to pin 2026-07-09, so re-verifying the ledger — the
+        # one thing the TTL exists to force — failed here with "verified_at cannot
+        # be in the future". The fixtures above keep fixed dates on purpose; they
+        # exercise the checker, not the ledger.
+        stamped = re.search(
+            r"`verified_at`:\s*(\d{4})-(\d{2})-(\d{2})",
+            LEDGER.read_text(encoding="utf-8"),
+        )
+        self.assertIsNotNone(stamped, "ledger header must carry verified_at")
+        self.assertEqual(
+            run_ttl_check(LEDGER, date(*(int(g) for g in stamped.groups()))), []
+        )
 
 
 class VolatileFactContentTests(unittest.TestCase):
     def test_ledger_records_current_official_claude_status(self) -> None:
         text = LEDGER.read_text(encoding="utf-8")
         for required in (
-            "`verified_at`: 2026-07-09",
-            "`expires_at`: 2026-08-08",
+            "`verified_at`: 2026-07-28",
+            "`expires_at`: 2026-08-27",
             "`ttl_days`: 30",
             "Fable 5 已于 2026-07-01 恢复全球访问",
             "Mythos 5 仍为受限可用",
             "Claude Sonnet 5",
             "`claude-sonnet-5`",
+            "Opus 5、Sonnet 5 与 Haiku 4.5",
+            "Opus 4.8 等 4.x 型号已移入 legacy（旧版）区",
             "https://www.anthropic.com/news/redeploying-fable-5",
             "https://www.anthropic.com/news/claude-sonnet-5",
             "https://platform.claude.com/docs/en/about-claude/models/overview",
