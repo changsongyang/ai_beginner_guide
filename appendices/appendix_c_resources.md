@@ -9,7 +9,7 @@
 这通常是第一手、相对最准确的资料。
 
 - **[OpenAI Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)**：官方的提示词教程，含金量极高。
-- **[Anthropic Library](https://github.com/anthropics/anthropic-cookbook)**：Claude 官方的提示词库，有很多精彩案例。
+- **[Claude Cookbooks](https://github.com/anthropics/claude-cookbooks)**：Claude 官方的代码示例合集（Jupyter Notebook 形式），覆盖工具调用、RAG、多模态、提示词缓存等常见做法。
 - **[Hugging Face LLM Course](https://huggingface.co/learn/llm-course)**：开源界的 AI 圣经，免费的 LLM 课程（原 NLP Course，已扩展更名为 LLM Course）。
 
 ## 经典必读论文
@@ -55,7 +55,7 @@
 
 ## 工具箱
 
-- **[Papers with Code](https://paperswithcode.com/)**：查看最新论文和对应的代码实现。
+- **[Hugging Face Papers](https://huggingface.co/papers/trending)**：查看当下热门论文和对应的代码实现（原 Papers with Code 已停止运营，其域名现在也跳转到这里）。
 - **[Product Hunt](https://www.producthunt.com/topics/artificial-intelligence)**：看看每天冒出来的 AI 新产品，寻找灵感。
 
 **避坑提醒**：
